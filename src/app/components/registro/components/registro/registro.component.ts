@@ -30,8 +30,8 @@ export class RegistroComponent implements OnInit {
     switch (type) {
       case EventTypes.Success:
         this.toastService.showSuccessToast(
-          'Success toast title',
-          'This is a success toast message.'
+          'Correcto',
+          'Usuario Creado con Exito'
         );
         break;
       case EventTypes.Warning:
@@ -42,8 +42,8 @@ export class RegistroComponent implements OnInit {
         break;
       case EventTypes.Error:
         this.toastService.showErrorToast(
-          'VAlORES INCORRECTOS',
-          'INTENTE DE NUEVO IMBESIL'
+          'Error',
+          'Campos inválidos'
         );
         break;
       default:
@@ -56,12 +56,16 @@ export class RegistroComponent implements OnInit {
   }
 
   postForm(form:any){
-    this.showToast(EventTypes.Success);
-    //this.api.postUser(form).subscribe(data => console.log(data))
-    console.log(form)
-    setTimeout(()=>{
-      this.router.navigate([''])
-    }, 2000)
+    if(form.valid){
+      this.showToast(EventTypes.Success);
+      //this.api.postUser(form).subscribe(data => console.log(data))
+      console.log(form.value)
+      setTimeout(()=>{
+        this.router.navigate([''])
+      }, 2000)
+    }else{
+      this.showToast(EventTypes.Error)
+    }
   }
 
   cancelar(){
