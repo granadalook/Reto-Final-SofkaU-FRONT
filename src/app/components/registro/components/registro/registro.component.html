@@ -1,1 +1,18 @@
-<p>registro works!</p>
+<div class="container mt-5">
+  <form [formGroup]="registerForm" (ngSubmit)="postForm(registerForm.value)">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="correo" required aria-describedby="emailHelp" placeholder="Dirección de correo electrónico">
+      <div id="emailHelp" class="form-text">Esta información no se compartirá con nadie más.</div>
+    </div>
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+      <input type="password" class="form-control" formControlName="password">
+    </div>
+
+    <div class="ml-5">
+      <button type="submit" class="btn btn-primary">Guardar</button>
+      <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+    </div>
+  </form>
+</div>
