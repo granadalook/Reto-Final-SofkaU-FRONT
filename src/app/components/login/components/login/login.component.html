@@ -1,1 +1,51 @@
-<p>login works!</p>
+<main
+  class="d-flex align-items-center justify-content-center bg-secondary bg-gradient bg-opacity-50"
+>
+  <app-toaster></app-toaster>
+  <section
+    class="card m-5 p-2 bg-secondary text-light border-dark"
+    style="width: 20rem"
+  >
+    <div class="card-header text-center fw-bold">LOGIN</div>
+    <form [formGroup]="formularioLogin">
+      <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label"
+          >Email
+          <img src="../../../../../assets/icon/Email-Download-icon.png" alt=""
+        /></label>
+        <input
+          type="email"
+          class="form-control"
+          placeholder="name@example.com"
+          formControlName="email"
+          [(ngModel)]="this.loginUser.email"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label"
+          >Password
+          <img
+            src="../../../../../assets/icon/preferences-desktop-user-password-icon.png"
+            alt=""
+        /></label>
+        <input
+          type="password"
+          class="form-control"
+          placeholder="password"
+          formControlName="password"
+          [(ngModel)]="this.loginUser.password"
+        />
+      </div>
+    </form>
+    <div class="card-footer text-center">
+      <button
+        type="submit"
+        class="btn btn-success border-dark"
+        [disabled]="formularioLogin.invalid"
+        (click)="enviarFormulario()"
+      >
+        Login
+      </button>
+    </div>
+  </section>
+</main>

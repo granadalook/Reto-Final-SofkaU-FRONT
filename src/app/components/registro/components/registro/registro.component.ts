@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastService } from 'src/app/core/services/Toast/toast.service';
+import { EventTypes } from 'src/app/models/event-types';
 //import { ApiService } from 'src/app/services/api/api.service';
 
 @Component({
@@ -10,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class RegistroComponent implements OnInit {
 
+  EventTypes = EventTypes;
+
   registerForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     correo: new FormControl('', [Validators.required, Validators.email, Validators.min(5)]),
@@ -17,12 +21,42 @@ export class RegistroComponent implements OnInit {
     rol: new FormControl('Seleccionar Rol')
   })
 
-  constructor(private router:Router/*, private api:ApiService*/) { }
+  constructor(private router:Router, private toastService: ToastService/*, private api:ApiService*/) { }
 
   ngOnInit(): void {
   }
 
+  showToast(type: EventTypes) {
+    switch (type) {
+      case EventTypes.Success:
+        this.toastService.showSuccessToast(
+          'Success toast title',
+          'This is a success toast message.'
+        );
+        break;
+      case EventTypes.Warning:
+        this.toastService.showWarningToast(
+          'Warning toast title',
+          'This is a warning toast message.'
+        );
+        break;
+      case EventTypes.Error:
+        this.toastService.showErrorToast(
+          'VAlORES INCORRECTOS',
+          'INTENTE DE NUEVO IMBESIL'
+        );
+        break;
+      default:
+        this.toastService.showInfoToast(
+          'Info toast title',
+          'This is an info toast message.'
+        );
+        break;
+    }
+  }
+
   postForm(form:any){
+    this.showToast(EventTypes.Success);
     //this.api.postUser(form).subscribe(data => console.log(data))
     console.log(form)
     setTimeout(()=>{
@@ -33,4 +67,5 @@ export class RegistroComponent implements OnInit {
   cancelar(){
     this.router.navigate([''])
   }
+
 }
