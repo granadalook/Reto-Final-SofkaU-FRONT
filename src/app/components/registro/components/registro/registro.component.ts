@@ -16,8 +16,8 @@ export class RegistroComponent implements OnInit {
 
   registerForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
-    correo: new FormControl('', [Validators.required, Validators.email, Validators.min(5)]),
-    password: new FormControl('', Validators.required),
+    correo: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(8)]),
     rol: new FormControl('Seleccionar Rol')
   })
 
@@ -56,10 +56,10 @@ export class RegistroComponent implements OnInit {
   }
 
   postForm(form:any){
-    if(form.valid){
+    if(this.registerForm.valid){
       this.showToast(EventTypes.Success);
       //this.api.postUser(form).subscribe(data => console.log(data))
-      console.log(form.value)
+      console.log(form)
       setTimeout(()=>{
         this.router.navigate([''])
       }, 2000)
