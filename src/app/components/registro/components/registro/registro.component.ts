@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
 import { EventTypes } from 'src/app/models/event-types';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { ResponseI } from 'src/app/models/response.interface';
 
 @Component({
   selector: 'app-registro',
@@ -54,7 +55,7 @@ export class RegistroComponent implements OnInit {
         break;
     }
   }
-
+/*
   postForm(form:any){
     if(this.registerForm.valid){
       this.showToast(EventTypes.Success);
@@ -68,33 +69,30 @@ export class RegistroComponent implements OnInit {
       this.showToast(EventTypes.Error)
     }
   }
-
+*/
   cancelar(){
     this.router.navigate([''])
   }
-/*
-  ostForm(form:any){
+
+  postForm(form:any){
     if(this.registerForm.valid){
       this.api.postUser(form).subscribe(data => {
-        console.log(`data: ${data}`)
+        this.showToast(EventTypes.Success)
+        console.log(data)
 
       }, err=> {
         if(err.status == 400){
           this.showToast(EventTypes.Warning)
-          setTimeout(()=>{
-            this.router.navigate([''])
-          }, 2000)
+
         }
       })
-
-      this.showToast(EventTypes.Success)
       console.log(form)
       setTimeout(()=>{
         this.router.navigate([''])
-      }, 3000)
+      }, 2000)
     }else{
       this.showToast(EventTypes.Error)
     }
-  }*/
+  }
 
 }
