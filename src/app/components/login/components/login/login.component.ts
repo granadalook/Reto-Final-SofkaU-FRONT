@@ -1,10 +1,9 @@
+import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {
-  EmailValidator,
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AutenticacionService } from 'src/app/core/services/Autenticacion/autenticacion.service';
+import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
 import { EventTypes } from 'src/app/models/event-types';
 import { LoginUser } from 'src/app/models/loginUser';
@@ -30,11 +29,16 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private autenticacionService: AutenticacionService,
+    private route: Router,
+    private sesionStorage: SesionStorageService
   ) {
     this.loginUser = {
+      nombreCompleto: 'a', //  provisional hasta que lo arreglen
       email: '',
       password: '',
+      rol: 'a', //  provisional hasta que lo arreglen
     };
   }
   ngOnInit(): void {}
@@ -42,20 +46,20 @@ export class LoginComponent implements OnInit {
     switch (type) {
       case EventTypes.Success:
         this.toastService.showSuccessToast(
-          'Success toast title',
-          'This is a success toast message.'
+          'bienvenido',
+          'Muchas gracias por visitarnos'
         );
         break;
       case EventTypes.Warning:
         this.toastService.showWarningToast(
-          'Warning toast title',
-          'This is a warning toast message.'
+          'email incorrecto',
+          'Email de inicio de secion incorrecto'
         );
         break;
       case EventTypes.Error:
         this.toastService.showErrorToast(
-          'VAlORES INCORRECTOS',
-          'INTENTE DE NUEVO IMBESIL'
+          'usuario no registrado',
+          'Verifica tu email y contraseña'
         );
         break;
       default:
@@ -66,14 +70,25 @@ export class LoginComponent implements OnInit {
         break;
     }
   }
-
   enviarFormulario() {
-    this.showToast(EventTypes.Success);
-    console.log(this.loginUser);
-    setTimeout(() => {
-      console.log(this.loginUser);
-      this.loginUser.email = '';
-      this.loginUser.password = '';
-    }, 2500);
+    this.autenticacionService.loginUserPassword(this.loginUser).subscribe(
+      (data) => {
+        if (data) {
+          this.showToast(EventTypes.Success);
+          this.sesionStorage.setUserName(data.nombreCompleto);
+          this.sesionStorage.setRol(data.rol);
+          setTimeout(() => {
+            this.loginUser.email = '';
+            this.loginUser.password = '';
+            this.route.navigate(['homepage']);
+          }, 2500);
+        }
+      },
+      (err: HttpResponse<string>) => {
+        if (err.status === 404) {
+          this.showToast(EventTypes.Error);
+        }
+      }
+    );
   }
 }
