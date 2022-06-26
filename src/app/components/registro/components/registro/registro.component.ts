@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
 import { EventTypes } from 'src/app/models/event-types';
-import { ApiService } from 'src/app/services/api/api.service';
+import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
   selector: 'app-registro',
@@ -36,8 +36,8 @@ export class RegistroComponent implements OnInit {
         break;
       case EventTypes.Warning:
         this.toastService.showWarningToast(
-          'Warning toast title',
-          'This is a warning toast message.'
+          'Alerta',
+          'El usuario ya existe'
         );
         break;
       case EventTypes.Error:
@@ -58,7 +58,8 @@ export class RegistroComponent implements OnInit {
   postForm(form:any){
     if(this.registerForm.valid){
       this.showToast(EventTypes.Success);
-      this.api.postUser(form).subscribe(data => console.log(data))
+      this.api.postUser(form).subscribe(data =>
+        console.log(data))
       console.log(form)
       setTimeout(()=>{
         this.router.navigate([''])
@@ -71,5 +72,29 @@ export class RegistroComponent implements OnInit {
   cancelar(){
     this.router.navigate([''])
   }
+/*
+  ostForm(form:any){
+    if(this.registerForm.valid){
+      this.api.postUser(form).subscribe(data => {
+        console.log(`data: ${data}`)
+
+      }, err=> {
+        if(err.status == 400){
+          this.showToast(EventTypes.Warning)
+          setTimeout(()=>{
+            this.router.navigate([''])
+          }, 2000)
+        }
+      })
+
+      this.showToast(EventTypes.Success)
+      console.log(form)
+      setTimeout(()=>{
+        this.router.navigate([''])
+      }, 3000)
+    }else{
+      this.showToast(EventTypes.Error)
+    }
+  }*/
 
 }
