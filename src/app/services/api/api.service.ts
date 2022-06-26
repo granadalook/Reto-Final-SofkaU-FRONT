@@ -9,7 +9,7 @@ import { ResponseI } from 'src/app/components/models/response.interface';
 })
 export class ApiService {
 
-  url: string = "holamundo"
+  url: string = "http://localhost:8080"
 
   constructor(private http:HttpClient) { }
 

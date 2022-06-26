@@ -1,6 +1,6 @@
 export interface RegisterI{
-  nombre: string,
-  correo: string,
+  nombreCompleto: string,
+  email: string,
   password: string,
   rol: string
 }
