@@ -3,4 +3,5 @@ export const environment = {
 
   UrlBase: 'http://localhost:8080',
   Login: '/login',
+  crearUsuario: '/usuario/crear'
 };
