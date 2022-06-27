@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
 import { EventTypes } from 'src/app/models/event-types';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { RegisterI } from 'src/app/models/register.interface';
 
 @Component({
   selector: 'app-registro',
@@ -70,10 +71,10 @@ export class RegistroComponent implements OnInit {
   }
 */
   cancelar(){
-    this.router.navigate([''])
+    this.router.navigate(['homepage'])
   }
 
-  postForm(form:any){
+  postForm(form:RegisterI){
     if(this.registerForm.valid){
       this.api.postUser(form).subscribe(data => {
         if(data){
@@ -81,7 +82,7 @@ export class RegistroComponent implements OnInit {
           console.log('data:')
           console.log(data)
           setTimeout(()=>{
-            this.router.navigate([''])
+            this.router.navigate(['homepage'])
           }, 2000)
         }
       }, err=> {
