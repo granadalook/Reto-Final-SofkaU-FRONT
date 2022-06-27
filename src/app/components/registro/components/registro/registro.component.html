@@ -15,6 +15,7 @@
                   <input type="text" id="form3Example1cg" class="form-control form-control-lg" formControlName="nombreCompleto"/>
                   <div class="errores" *ngIf="registerForm.get('nombreCompleto')?.invalid && registerForm.get('nombreCompleto')?.dirty || registerForm.get('nombreCompleto')?.touched">
                     <span *ngIf="registerForm.get('nombreCompleto')?.hasError?.('required')">campo requerido</span>
+                    <span *ngIf="registerForm.get('nombreCompleto')?.hasError?.('pattern')">sólo se permiten letras</span>
                   </div>
                 </div>
 
