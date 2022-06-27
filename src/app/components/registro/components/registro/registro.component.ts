@@ -16,7 +16,7 @@ export class RegistroComponent implements OnInit {
   EventTypes = EventTypes;
 
   registerForm = new FormGroup({
-    nombreCompleto: new FormControl('', Validators.required),
+    nombreCompleto: new FormControl('', [Validators.required, Validators.pattern("[a-zA-Z ]")]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(8)]),
     rol: new FormControl('Seleccionar Rol')
