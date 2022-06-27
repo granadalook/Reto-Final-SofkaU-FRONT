@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark d-flex justify-content-around">
   <div class="m-3">
     <img
       width="106"
@@ -8,26 +8,43 @@
       alt="..."
     />
   </div>
-  <div class="me-5">
+  <div>
+    <h2 class="text-light">{{ userName }}</h2>
+  </div>
+
+  <div class="d-flex justify-content-evenly">
+    <ng-container *ngIf="loggueado">
+      <button
+        class="btn btn-outline-secondary m-1"
+        type="button"
+        (click)="cerrarSesion()"
+      >
+        cerrar Sesion
+      </button>
+    </ng-container>
     <button
-      class="btn btn-outline-secondary"
+      class="btn btn-outline-secondary m-1"
       type="button"
       routerLink="/proyecto"
     >
       Crear proyecto
     </button>
     <button
-      class="btn btn-outline-secondary mx-3"
+      class="btn btn-outline-secondary m-1"
       type="button"
       routerLink="/homepage"
     >
       Home
     </button>
-    <button class="btn btn-outline-secondary" type="button" routerLink="/login">
+    <button
+      class="btn btn-outline-secondary m-1"
+      type="button"
+      routerLink="/login"
+    >
       Login
     </button>
     <button
-      class="btn btn-outline-secondary mx-3"
+      class="btn btn-outline-secondary m-1"
       type="button"
       routerLink="/registro"
     >

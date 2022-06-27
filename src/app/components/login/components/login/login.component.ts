@@ -39,7 +39,9 @@ export class LoginComponent implements OnInit {
       password: '',
     };
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.sesionStorage.logOut();
+  }
   showToast(type: EventTypes) {
     switch (type) {
       case EventTypes.Success:
@@ -78,7 +80,11 @@ export class LoginComponent implements OnInit {
           setTimeout(() => {
             this.loginUser.email = '';
             this.loginUser.password = '';
-            this.route.navigate(['homepage']);
+            this.route.navigate(['homepage'])
+            .then(() => {
+              window.location.reload();
+            });
+            
           }, 2500);
         }
       },
