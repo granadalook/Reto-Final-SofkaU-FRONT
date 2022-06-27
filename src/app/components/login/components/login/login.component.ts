@@ -35,10 +35,8 @@ export class LoginComponent implements OnInit {
     private sesionStorage: SesionStorageService
   ) {
     this.loginUser = {
-      nombreCompleto: 'a', //  provisional hasta que lo arreglen
       email: '',
       password: '',
-      rol: 'a', //  provisional hasta que lo arreglen
     };
   }
   ngOnInit(): void {}
@@ -85,7 +83,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (err: HttpResponse<string>) => {
-        if (err.status === 404) {
+        if (err.status === 400) {
           this.showToast(EventTypes.Error);
         }
       }
