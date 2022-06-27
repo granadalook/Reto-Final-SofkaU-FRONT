@@ -23,6 +23,13 @@ const routes: Routes = [
         (modulo) => modulo.RegistroModule
       ),
   },
+  {
+    path: 'proyecto',
+    loadChildren: () =>
+      import('./components/proyecto/proyecto.module').then(
+        (modulo) => modulo.ProyectoModule
+      ),
+  },
 ];
 
 @NgModule({
