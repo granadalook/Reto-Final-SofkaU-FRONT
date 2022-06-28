@@ -12,6 +12,13 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'historias',
+    loadChildren: () =>
+      import('./components/historias/historias.module').then(
+        (modulo) => modulo.HistoriasModule
+      ),
+  },
+  {
     path: 'homepage',
     canActivate: [ProteccionGuard],
     loadChildren: () =>
