@@ -75,6 +75,7 @@ export class LoginComponent implements OnInit {
           this.showToast(EventTypes.Success);
           this.sesionStorage.setUserName(data.nombreCompleto);
           this.sesionStorage.setRol(data.rol);
+          this.sesionStorage.setId(data.usuarioId);
           setTimeout(() => {
             this.loginUser.email = '';
             this.loginUser.password = '';
