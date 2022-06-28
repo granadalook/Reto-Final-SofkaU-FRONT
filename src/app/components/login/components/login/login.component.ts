@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AutenticacionService } from 'src/app/core/services/Autenticacion/autenticacion.service';
-import { HelperService } from 'src/app/core/services/helper/helper.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
 import { EventTypes } from 'src/app/models/event-types';
@@ -44,51 +43,25 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.sesionStorage.logOut();
   }
-  showToast(type: EventTypes) {
-    switch (type) {
-      case EventTypes.Success:
-        this.toastService.showSuccessToast('bienvenido', `${this.nombre}`);
-        break;
-      case EventTypes.Warning:
-        this.toastService.showWarningToast(
-          'email incorrecto',
-          'Email de inicio de secion incorrecto'
-        );
-        break;
-      case EventTypes.Error:
-        this.toastService.showErrorToast(
-          'usuario no registrado',
-          'Verifica tu email y contraseña'
-        );
-        break;
-      default:
-        this.toastService.showInfoToast(
-          'Info toast title',
-          'This is an info toast message.'
-        );
-        break;
-    }
-  }
   enviarFormulario() {
     this.autenticacionService.loginUserPassword(this.loginUser).subscribe(
       (data) => {
         if (data) {
           this.nombre = data.nombreCompleto;
-          this.showToast(EventTypes.Success);
+          this.toastService.showSuccessToast('bienvenido', `${this.nombre}`);
           this.sesionStorage.setUserName(data.nombreCompleto);
           this.sesionStorage.setRol(data.rol);
           setTimeout(() => {
-            this.loginUser.email = '';
-            this.loginUser.password = '';
-            this.route.navigate(['homepage']).then(() => {
-              window.location.reload();
-            });
-          }, 2500);
+            this.route.navigate(['homepage']);
+          }, 1000);
         }
       },
       (err: HttpResponse<string>) => {
         if (err.status === 400) {
-          this.showToast(EventTypes.Error);
+          this.toastService.showErrorToast(
+            'usuario no registrado',
+            'Verifica tu email y contraseña'
+          );
         }
       }
     );
