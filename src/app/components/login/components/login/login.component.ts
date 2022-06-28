@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         }
       },
       (err: HttpResponse<string>) => {
-        if (err.status === 400) {
+        if (err.status === 404) {
           this.toastService.showErrorToast(
             'usuario no registrado',
             'Verifica tu email y contraseña'
