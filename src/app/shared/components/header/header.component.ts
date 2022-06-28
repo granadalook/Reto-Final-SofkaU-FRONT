@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { HelperService } from 'src/app/core/services/helper/helper.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
 
 @Component({
@@ -14,19 +15,21 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private sesionStorage: SesionStorageService
+    private sesionStorage: SesionStorageService,
+    private helper: HelperService
   ) {}
 
   ngOnInit(): void {
-    if (this.sesionStorage.getUserName()) {
-      this.rol = this.sesionStorage.getRol();
-      this.userName = this.sesionStorage.getUserName();
+    this.helper.HelperRol.subscribe((respuesta) => (this.rol = respuesta));
+    this.helper.helperNombre.subscribe((resp) => (this.userName = resp));
+    if (this.rol) {
       this.loggueado = true;
     }
+    /* if (this.sesionStorage.getUserName()) {
+      this.rol = this.sesionStorage.getRol();
+      this.userName = this.sesionStorage.getUserName();
+    } */
   }
-  refresh(): void {
-    window.location.reload();
-}
   cerrarSesion() {
     this.router.navigate(['login']).then(() => {
       window.location.reload();

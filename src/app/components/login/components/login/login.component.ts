@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AutenticacionService } from 'src/app/core/services/Autenticacion/autenticacion.service';
+import { HelperService } from 'src/app/core/services/helper/helper.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
 import { EventTypes } from 'src/app/models/event-types';
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
   password?: string;
   loginUser: LoginUser;
   EventTypes = EventTypes;
+  nombre?: string;
 
   public formularioLogin: FormGroup = this.formBuilder.group({
     email: ['', [Validators.email, Validators.required]],
@@ -45,10 +47,7 @@ export class LoginComponent implements OnInit {
   showToast(type: EventTypes) {
     switch (type) {
       case EventTypes.Success:
-        this.toastService.showSuccessToast(
-          'bienvenido',
-          'Muchas gracias por visitarnos'
-        );
+        this.toastService.showSuccessToast('bienvenido', `${this.nombre}`);
         break;
       case EventTypes.Warning:
         this.toastService.showWarningToast(
@@ -74,17 +73,16 @@ export class LoginComponent implements OnInit {
     this.autenticacionService.loginUserPassword(this.loginUser).subscribe(
       (data) => {
         if (data) {
+          this.nombre = data.nombreCompleto;
           this.showToast(EventTypes.Success);
           this.sesionStorage.setUserName(data.nombreCompleto);
           this.sesionStorage.setRol(data.rol);
           setTimeout(() => {
             this.loginUser.email = '';
             this.loginUser.password = '';
-            this.route.navigate(['homepage'])
-            .then(() => {
+            this.route.navigate(['homepage']).then(() => {
               window.location.reload();
             });
-            
           }, 2500);
         }
       },
