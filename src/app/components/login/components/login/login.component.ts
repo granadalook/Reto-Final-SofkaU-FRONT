@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
           this.toastService.showSuccessToast('bienvenido', `${this.nombre}`);
           this.sesionStorage.setUserName(data.nombreCompleto);
           this.sesionStorage.setRol(data.rol);
+          this.sesionStorage.setId(data.usuarioId);
           setTimeout(() => {
             this.route.navigate(['homepage']);
           }, 1000);
