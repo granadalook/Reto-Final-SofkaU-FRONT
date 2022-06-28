@@ -1,15 +1,15 @@
 <nav class="navbar navbar-dark bg-dark d-flex justify-content-around">
-  <div class="m-3">
+  <div class="m-3" >
     <img
       width="106"
       height="32"
       src="../../../../assets/img/7508337192_1a19c680-f4bd-48b7-ad82-6bc50e07db5f.png"
       class=".img-fluid float-start"
-      alt="..."
+      alt="logo Cien de cilantro"
     />
   </div>
   <div>
-    <h2 class="text-light">{{ userName }}</h2>
+    <h2 class="text-light">{{ usuario?.nombreCompleto }}</h2>
   </div>
   <div class="d-flex justify-content-evenly">
     <ng-container *ngIf="loggueado">
@@ -18,11 +18,23 @@
         type="button"
         (click)="cerrarSesion()"
       >
-        cerrar Sesion
+        Cerrar sesión
       </button>
-      <ng-container
-        *ngIf="this.rol === 'LiderTecnico' || this.rol === 'arquitecto'"
+      <button
+        class="btn btn-outline-secondary m-1"
+        type="button"
+        routerLink="/homepage"
       >
+        Home
+      </button>
+      <ng-container *ngIf="this.usuario?.rol === 'Arquitecto'">
+        <button
+          class="btn btn-outline-secondary m-1"
+          type="button"
+          routerLink="/registro"
+        >
+          Registro
+        </button>
         <button
           class="btn btn-outline-secondary m-1"
           type="button"
@@ -31,20 +43,6 @@
           Crear proyecto
         </button>
       </ng-container>
-      <button
-        class="btn btn-outline-secondary m-1"
-        type="button"
-        routerLink="/homepage"
-      >
-        Home
-      </button>
-      <button
-        class="btn btn-outline-secondary m-1"
-        type="button"
-        routerLink="/registro"
-      >
-        Registro
-      </button>
     </ng-container>
     >
   </div>

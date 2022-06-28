@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { HelperService } from 'src/app/core/services/helper/helper.service';
-import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
+import { Subscription } from 'rxjs';
+import { AutenticacionService } from 'src/app/core/services/Autenticacion/autenticacion.service';
+import { ToastService } from 'src/app/core/services/Toast/toast.service';
+import { UsuarioI } from 'src/app/models/usuario';
 
 @Component({
   selector: 'app-header',
@@ -9,30 +11,33 @@ import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  rol?: string | null;
-  userName?: string | null;
   loggueado: boolean = false;
+  usuario?: UsuarioI;
+  usuario$?: Subscription;
 
   constructor(
     private router: Router,
-    private sesionStorage: SesionStorageService,
-    private helper: HelperService
+    private autenticacionService: AutenticacionService,
+    private toastService: ToastService
   ) {}
-
   ngOnInit(): void {
-    this.helper.HelperRol.subscribe((respuesta) => (this.rol = respuesta));
-    this.helper.helperNombre.subscribe((resp) => (this.userName = resp));
-    if (this.rol) {
-      this.loggueado = true;
-    }
-    /* if (this.sesionStorage.getUserName()) {
-      this.rol = this.sesionStorage.getRol();
-      this.userName = this.sesionStorage.getUserName();
-    } */
+    this.usuario$ = this.autenticacionService.user$.subscribe((res) => {
+      this.usuario = res;
+      this.loggueado = false;
+      if (this.usuario.rol) {
+        this.loggueado = true;
+      }
+    });
+  }
+  ngOnDrestroy() {
+    this.usuario$?.unsubscribe();
   }
   cerrarSesion() {
-    this.router.navigate(['login']).then(() => {
-      window.location.reload();
-    });
+    this.toastService.showInfoToast(
+      'gracias por visitarnos',
+      'Que tengas un feliz dia'
+    );
+    this.autenticacionService.logOut();
+    this.router.navigate(['login']);
   }
 }
