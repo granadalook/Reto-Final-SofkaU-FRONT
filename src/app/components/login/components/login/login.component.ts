@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   password?: string;
   loginUser: LoginUser;
   EventTypes = EventTypes;
+  nombre?: string;
 
   public formularioLogin: FormGroup = this.formBuilder.group({
     email: ['', [Validators.email, Validators.required]],
@@ -39,53 +40,29 @@ export class LoginComponent implements OnInit {
       password: '',
     };
   }
-  ngOnInit(): void {}
-  showToast(type: EventTypes) {
-    switch (type) {
-      case EventTypes.Success:
-        this.toastService.showSuccessToast(
-          'bienvenido',
-          'Muchas gracias por visitarnos'
-        );
-        break;
-      case EventTypes.Warning:
-        this.toastService.showWarningToast(
-          'email incorrecto',
-          'Email de inicio de secion incorrecto'
-        );
-        break;
-      case EventTypes.Error:
-        this.toastService.showErrorToast(
-          'usuario no registrado',
-          'Verifica tu email y contraseña'
-        );
-        break;
-      default:
-        this.toastService.showInfoToast(
-          'Info toast title',
-          'This is an info toast message.'
-        );
-        break;
-    }
+  ngOnInit(): void {
+    this.sesionStorage.logOut();
   }
   enviarFormulario() {
     this.autenticacionService.loginUserPassword(this.loginUser).subscribe(
       (data) => {
         if (data) {
-          this.showToast(EventTypes.Success);
+          this.nombre = data.nombreCompleto;
+          this.toastService.showSuccessToast('bienvenido', `${this.nombre}`);
           this.sesionStorage.setUserName(data.nombreCompleto);
           this.sesionStorage.setRol(data.rol);
           this.sesionStorage.setId(data.usuarioId);
           setTimeout(() => {
-            this.loginUser.email = '';
-            this.loginUser.password = '';
             this.route.navigate(['homepage']);
-          }, 2500);
+          }, 1000);
         }
       },
       (err: HttpResponse<string>) => {
         if (err.status === 400) {
-          this.showToast(EventTypes.Error);
+          this.toastService.showErrorToast(
+            'usuario no registrado',
+            'Verifica tu email y contraseña'
+          );
         }
       }
     );

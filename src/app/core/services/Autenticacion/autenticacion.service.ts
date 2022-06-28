@@ -3,11 +3,14 @@ import { LoginUser } from 'src/app/models/loginUser';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UsuarioI } from 'src/app/models/usuario';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AutenticacionService {
+  private user = new BehaviorSubject<UsuarioI>({} as UsuarioI);
+  public user$ = this.user.asObservable();
   constructor(private http: HttpClient) {}
   sendHeaders() {
     let headers = new HttpHeaders();
@@ -23,11 +26,22 @@ export class AutenticacionService {
     );
     return headers;
   }
-  loginUserPassword(usuarioenviado: LoginUser) {
-    return this.http.post<UsuarioI>(
-      `${environment.UrlBase}${environment.Login}`,
-      usuarioenviado,
-      { headers: this.sendHeaders() }
-    );
+  loginUserPassword(usuarioenviado: LoginUser): Observable<UsuarioI> {
+    return this.http
+      .post<UsuarioI>(
+        `${environment.UrlBase}${environment.Login}`,
+        usuarioenviado,
+        { headers: this.sendHeaders() }
+      )
+      .pipe(
+        tap((res) => {
+          console.log(res);
+          this.user.next(res);
+        })
+      );
+  }
+
+  logOut(): void {
+    this.user.next({} as UsuarioI);
   }
 }
