@@ -10,9 +10,10 @@ import { ProyectoI } from 'src/app/models/proyecto.interface';
 @Component({
   selector: 'app-proyecto',
   templateUrl: './proyecto.component.html',
-  styleUrls: ['./proyecto.component.scss']
+  styleUrls: ['./proyecto.component.scss'],
 })
 export class ProyectoComponent implements OnInit {
+
 
   proyectos: ProyectoI
 
@@ -28,5 +29,6 @@ export class ProyectoComponent implements OnInit {
 
   ngOnInit(): void {
     this.proyects = this.proyectos;
+
   }
 }
