@@ -12,7 +12,7 @@ import { UsuarioI } from 'src/app/models/usuario';
 })
 export class HistoriasComponent implements OnInit {
   rol?: string | null;
-  liderTecnicoId?: string;
+  liderTecnicoId: string | null = '';
   newHistoria: HistoriaI;
   proyectoId?: string;
   descripcion?: string;
@@ -29,8 +29,9 @@ export class HistoriasComponent implements OnInit {
     this.newHistoria = {
       descripcion: '',
       liderTecnicoId: this.sesionStorageService.getId(),
-      proyectoId: '0002',
-      desarrolladorId: '',
+      proyectoId: '0001',
+      desarrolladorId: ''.trim(),
+      historiaUsuarioId: '',
     };
   }
   ngOnInit(): void {
@@ -38,7 +39,6 @@ export class HistoriasComponent implements OnInit {
 
     this.getUsuarios('Desarrollador');
   }
-
   nuevaHistoria() {
     this.historiasService.crearHistoria(this.newHistoria).subscribe((data) => {
       console.log('data', data);

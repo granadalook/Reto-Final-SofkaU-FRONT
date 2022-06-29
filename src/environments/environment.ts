@@ -6,5 +6,9 @@ export const environment = {
   crearUsuario: '/usuario/crear',
   crearHistoria: '/historia/crear',
   allhistorias: '/historia/obtenerTodas',
-  allUsuarios:'/usuario/listarPorRol/'
+  allUsuarios: '/usuario/listarPorRol/',
+  allHistorias: '/historia/obtenerTodas',
+  allHistoriasLider: '/historia/obtenerPorLiderTecnicoId/',
+  allHistoriasDev: '/historia/obtenerPorDesarrolladorId/',
+  eliminarHistoria: '/historia/eliminar/',
 };

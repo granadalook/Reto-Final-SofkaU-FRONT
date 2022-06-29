@@ -4,11 +4,13 @@ import { CommonModule } from '@angular/common';
 import { HistoriasRoutingModule } from './historias-routing.module';
 import { HistoriasComponent } from './components/historias/historias.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HistoriasCarsComponent } from './components/historias-cars/historias-cars.component';
 
 
 @NgModule({
   declarations: [
-    HistoriasComponent
+    HistoriasComponent,
+    HistoriasCarsComponent
   ],
   imports: [
     CommonModule,

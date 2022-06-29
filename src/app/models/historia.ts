@@ -3,4 +3,5 @@ export interface HistoriaI {
   liderTecnicoId: string | null;
   proyectoId: string;
   desarrolladorId: string;
+  historiaUsuarioId:string
 }
