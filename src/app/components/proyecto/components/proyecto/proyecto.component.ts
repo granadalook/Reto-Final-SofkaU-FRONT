@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
+import { UsuarioI } from 'src/app/models/usuario';
+import { ProyectoI } from 'src/app/models/proyecto.interface';
 
 @Component({
   selector: 'app-proyecto',
@@ -11,28 +13,22 @@ import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion
   styleUrls: ['./proyecto.component.scss'],
 })
 export class ProyectoComponent implements OnInit {
-  proyectoForm = new FormGroup({
-    nombre: new FormControl(''),
-    arquitectoId: new FormControl(this.sesionStorage.getId()),
-    liderTecnicoId: new FormControl(''),
-    desarrolladorId: new FormControl(''),
-  });
+
+
+  proyectos: ProyectoI
+
+  proyects: ProyectoI | any
 
   constructor(
     private toastService: ToastService,
-    private api: ApiService,
-    private router: Router,
-    private sesionStorage: SesionStorageService
-  ) {}
-
-  ngOnInit(): void {}
-
-  postForm(form: any) {
-    console.log(`Enviar Formulario:`);
-    console.log(form);
+    private api:ApiService,
+    private router:Router
+    ) { this.proyectos = {nombre: '100 de cilantro', arquitectoId: '010101', liderTecnicoId: '102030', desarrolladorId: ['0145214', '524879']},
+    {nombre: '100 de cilantro', arquitectoId: '010101', liderTecnicoId: '102030', desarrolladorId: ['0145214', '524879']}
   }
 
-  cancelar() {
-    this.router.navigate(['homepage']);
+  ngOnInit(): void {
+    this.proyects = this.proyectos;
+
   }
 }

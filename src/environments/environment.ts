@@ -11,4 +11,7 @@ export const environment = {
   allHistoriasLider: '/historia/obtenerPorLiderTecnicoId/',
   allHistoriasDev: '/historia/obtenerPorDesarrolladorId/',
   eliminarHistoria: '/historia/eliminar/',
+  ListarPorRol: '/usuario/listarPorRol/',
+  CrearProyecto: '/proyecto/crear'
+
 };

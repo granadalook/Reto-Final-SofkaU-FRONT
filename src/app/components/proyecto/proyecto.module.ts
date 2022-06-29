@@ -5,11 +5,15 @@ import { ProyectoRoutingModule } from './proyecto-routing.module';
 import { ProyectoComponent } from './components/proyecto/proyecto.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CrearComponent } from './components/crear/crear.component';
+import { DetallesComponent } from './components/detalles/detalles.component';
 
 
 @NgModule({
   declarations: [
-    ProyectoComponent
+    ProyectoComponent,
+    CrearComponent,
+    DetallesComponent
   ],
   imports: [
     CommonModule,
