@@ -12,6 +12,7 @@ export const environment = {
   allHistoriasDev: '/historia/obtenerPorDesarrolladorId/',
   eliminarHistoria: '/historia/eliminar/',
   ListarPorRol: '/usuario/listarPorRol/',
+  ListarPorId: '/usuario/',
   CrearProyecto: '/proyecto/crear'
 
 };
