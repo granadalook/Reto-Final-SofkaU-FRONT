@@ -51,7 +51,7 @@ export class CrearComponent implements OnInit {
           console.log('data:')
           console.log(data)
           setTimeout(()=>{
-            this.router.navigate(['homepage'])
+            this.router.navigate(['proyecto'])
           }, 2000)
         }
       })

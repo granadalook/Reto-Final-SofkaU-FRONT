@@ -14,19 +14,27 @@ import { ProyectoI } from 'src/app/models/proyecto.interface';
 })
 export class ProyectoComponent implements OnInit {
 
-  proyectos: ProyectoI
+  userLogged = this.sesionStorage.getId()
 
-  proyects: ProyectoI | any
+  usuarios:UsuarioI[] | any
 
   constructor(
     private toastService: ToastService,
     private api:ApiService,
-    private router:Router
-    ) { this.proyectos = {nombre: '100 de cilantro', arquitectoId: '010101', liderTecnicoId: '102030', desarrolladorId: ['0145214', '524879']},
-    {nombre: '100 de cilantro', arquitectoId: '010101', liderTecnicoId: '102030', desarrolladorId: ['0145214', '524879']}
-  }
+    private router:Router,
+    private sesionStorage:SesionStorageService
+    ) { }
 
   ngOnInit(): void {
-    this.proyects = this.proyectos;
+    this.api.getUserById(this.userLogged).subscribe(data =>{
+     this.usuarios = data.proyectosAsociados
+     console.log('la data:')
+     console.log(data)
+      })
   }
+
+  editarProyecto(id:string){
+    console.log(id)
+  }
+
 }

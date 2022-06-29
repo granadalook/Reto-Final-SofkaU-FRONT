@@ -27,10 +27,10 @@
                       <label for="rol" class="form-label">Asignar Desarrollador</label>
                       <select class="form-select" formControlName="{{i}}" aria-label="Default select example">
                         <option value={{desarrollador.usuarioId}} *ngFor="let desarrollador of Desarrolladores;">{{desarrollador.nombreCompleto}}</option>
-                      </select><a class=" btn-link btn-sm" (click)="removerDesarrollador(i)">Eliminar</a>
+                      </select><a class=" btn-link btn-sm" style="cursor:pointer;" (click)="removerDesarrollador(i)">Eliminar</a>
                     </div>
                   </div>
-                  <a class=" btn-link btn-sm" (click)="addDesarrollador()">Agregar Otro Desarrollador</a>
+                  <a class=" btn-link btn-sm" style="cursor:pointer;" (click)="addDesarrollador()">Agregar Otro Desarrollador</a>
 
                 <div class="d-flex justify-content-center">
                   <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Crear Proyecto</button>

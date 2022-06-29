@@ -25,4 +25,8 @@ export class ApiService {
   crearProyecto(form:ProyectoI):Observable<ResponseI>{
     return this.http.post<ResponseI>(`${environment.UrlBase}${environment.CrearProyecto}`, form)
   }
+
+  getUserById(id:any):Observable<UsuarioI>{
+    return this.http.get<UsuarioI>(`${environment.UrlBase}${environment.ListarPorId}` + id)
+  }
 }
