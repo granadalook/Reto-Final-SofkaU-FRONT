@@ -55,21 +55,7 @@ export class RegistroComponent implements OnInit {
         break;
     }
   }
-/*
-  postForm(form:any){
-    if(this.registerForm.valid){
-      this.showToast(EventTypes.Success);
-      this.api.postUser(form).subscribe(data =>
-        console.log(data))
-      console.log(form)
-      setTimeout(()=>{
-        this.router.navigate([''])
-      }, 2000)
-    }else{
-      this.showToast(EventTypes.Error)
-    }
-  }
-*/
+
   cancelar(){
     this.router.navigate(['homepage'])
   }
