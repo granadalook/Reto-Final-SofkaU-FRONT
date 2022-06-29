@@ -1,0 +1,160 @@
+<div class="container-fluid">
+  <div class="row flex-nowrap">
+    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+      <div
+        class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
+      >
+        <span class="fs-5 d-none d-sm-inline ms-1">{{ rol }}</span>
+
+        <ul
+          class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
+          id="menu"
+        >
+          <ng-container *ngIf="rol != 'Desarrollador'">
+            <li>
+              <button
+                type="button"
+                class="btn"
+                data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"
+              >
+                <img
+                  class="iconoLogo"
+                  src="../../../../../assets/icon/Actions-document-new-icon.png"
+                  alt=""
+                />
+                <span class="ms-1 d-none d-sm-inline">Crear Historia</span>
+              </button>
+            </li>
+          </ng-container>
+        </ul>
+        <hr />
+      </div>
+    </div>
+    <app-historias-cars></app-historias-cars>
+  </div>
+</div>
+
+<!-- modal -->
+<div
+  class="modal fade"
+  id="staticBackdrop"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="staticBackdropLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="staticBackdropLabel">
+          Crear Historia
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="formularioHistoria">
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form3Example3cg">Titulo </label>
+            <input
+              type="text"
+              class="form-control form-control-lg"
+              placeholder="Titulo historia usuario"
+              formControlName="tituloHistoriaUsuario"
+              [(ngModel)]="this.newHistoria.tituloHistoriaUsuario"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label"
+              >Criterios de aceptacion</label
+            >
+            <textarea
+              [(ngModel)]="this.newHistoria.descripcion"
+              class="form-control"
+              formControlName="descripcion"
+              placeholder="Descripcion detallada de los criterios de aceptacion"
+              rows="3"
+            ></textarea>
+          </div>
+          <div class="my-2">
+            <label class="form-label" for="form3Example3cg"
+              >Asignar Desarrollador a la historia</label
+            >
+            <select
+              formControlName="selecDev"
+              [(ngModel)]="this.newHistoria.desarrolladorId"
+              class="form-select"
+              aria-label="Default select example"
+            >
+              <option
+                *ngFor="let usuario of usuarios"
+                value="{{ usuario.usuarioId }}"
+              >
+                {{ usuario.nombreCompleto }}
+              </option>
+            </select>
+          </div>
+          <div class="d-flex justify-content-evenly">
+            <div>
+              <label class="form-label" for="form3Example3cg"
+                >Asignar proyecto</label
+              >
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                formControlName="proyectoId"
+                [(ngModel)]="this.newHistoria.proyectoId"
+              >
+                <option value="001">002</option>
+                <option value="002">002</option>
+                <option value="003">003</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label" for="form3Example3cg">Estimacion</label>
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                formControlName="estimacion"
+                [(ngModel)]="this.newHistoria.estimacion"
+              >
+                <option value="1">1</option>
+                <option value="3">3</option>
+                <option value="5">5</option>
+                <option value="8">8</option>
+                <option value="13">13</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn btn-danger btn-block btn-lg text-body"
+          data-bs-dismiss="modal"
+        >
+          <span class="spinner-grow spinner-grow-sm"></span>
+          Cancelar
+        </button>
+        <button
+          type="button"
+          class="btn btn-success btn-block btn-lg text-body"
+          [disabled]="formularioHistoria.invalid"
+          (click)="nuevaHistoria()"
+          data-bs-dismiss="modal"
+        >
+          <span class="spinner-grow spinner-grow-sm"></span>
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal -->

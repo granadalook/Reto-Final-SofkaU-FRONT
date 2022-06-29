@@ -1,0 +1,103 @@
+<ng-container *ngFor="let history of historys">
+  <div class="card m-1" style="width: 13rem">
+    <div class="card-body p-1">
+      <ng-container
+        *ngIf="history.estimacion === '1' || history.estimacion === '3'"
+      >
+        <div class="card text-bg-success mb-3" style="max-width: 13rem">
+          <div class="card-header d-flex flex-column p-1">
+            <div class="fw-bold text-uppercase">
+              {{ history.tituloHistoriaUsuario }}
+            </div>
+            <div class="d-flex justify-content-start">
+              <div class="me-1">Estimacion:</div>
+              <p class="fw-bold">{{ history.estimacion }}</p>
+            </div>
+          </div>
+          <div class="card-body p-1">
+            <h5 class="card-title"></h5>
+            <p class="card-text m-0">{{ history.descripcion }}</p>
+            <ng-container *ngIf="rol != 'Desarrollador'">
+              <button
+                type="button"
+                class="btn"
+                (click)="eliminarHistoria(history.historiaUsuarioId)"
+              >
+                <img
+                  class="iconoLogo"
+                  src="../../../../../assets/icon/Button-Delete-icon.png"
+                  alt=""
+                />
+              </button>
+            </ng-container>
+          </div>
+        </div>
+        <app-tareas></app-tareas>
+      </ng-container>
+      <ng-container
+        *ngIf="history.estimacion === '5' || history.estimacion === '8'"
+      >
+        <div class="card text-bg-warning mb-3" style="max-width: 13rem">
+          <div class="card-header d-flex flex-column p-1">
+            <div class="fw-bold text-uppercase">
+              {{ history.tituloHistoriaUsuario }}
+            </div>
+            <div class="d-flex justify-content-start">
+              <div class="me-1">Estimacion:</div>
+              <p class="fw-bold">{{ history.estimacion }}</p>
+            </div>
+          </div>
+          <div class="card-body p-1">
+            <h5 class="card-title"></h5>
+            <p class="card-text m-0">{{ history.descripcion }}</p>
+            <ng-container *ngIf="rol != 'Desarrollador'">
+              <button
+                type="button"
+                class="btn"
+                (click)="eliminarHistoria(history.historiaUsuarioId)"
+              >
+                <img
+                  class="iconoLogo"
+                  src="../../../../../assets/icon/Button-Delete-icon.png"
+                  alt=""
+                />
+              </button>
+            </ng-container>
+          </div>
+        </div>
+        <app-tareas></app-tareas>
+      </ng-container>
+      <ng-container *ngIf="history.estimacion === '13'">
+        <div class="card text-bg-danger mb-3" style="max-width: 13rem">
+          <div class="card-header d-flex flex-column p-1">
+            <div class="fw-bold text-uppercase">
+              {{ history.tituloHistoriaUsuario }}
+            </div>
+            <div class="d-flex justify-content-start">
+              <div class="me-1">Estimacion:</div>
+              <p class="fw-bold">{{ history.estimacion }}</p>
+            </div>
+          </div>
+          <div class="card-body p-1">
+            <h5 class="card-title"></h5>
+            <p class="card-text m-0">{{ history.descripcion }}</p>
+            <ng-container *ngIf="rol != 'Desarrollador'">
+              <button
+                type="button"
+                class="btn"
+                (click)="eliminarHistoria(history.historiaUsuarioId)"
+              >
+                <img
+                  class="iconoLogo"
+                  src="../../../../../assets/icon/Button-Delete-icon.png"
+                  alt=""
+                />
+              </button>
+            </ng-container>
+          </div>
+        </div>
+        <app-tareas></app-tareas>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
