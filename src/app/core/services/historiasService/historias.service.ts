@@ -1,10 +1,10 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HistoriaI } from 'src/app/models/historia';
 import { UsuarioI } from 'src/app/models/usuario';
 import { environment } from 'src/environments/environment';
 import { SesionStorageService } from '../SesionStorage/sesion-storage.service';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,12 +13,15 @@ export class HistoriasService {
   rol?: string | null;
   private historia = new BehaviorSubject<HistoriaI>({} as HistoriaI);
   public historia$ = this.historia.asObservable();
+  private eliminado = new BehaviorSubject({});
+  public eliminado$ = this.eliminado.asObservable();
   constructor(
     private http: HttpClient,
     private sesionStorageService: SesionStorageService
   ) {}
 
   crearHistoria(historia: HistoriaI) {
+    console.log('historia', historia);
     return this.http
       .post<HistoriaI>(
         `${environment.UrlBase}${environment.crearHistoria}`,
@@ -37,9 +40,14 @@ export class HistoriasService {
     );
   }
   EliminarHistoria(id: string) {
-    return this.http.delete(
-      `${environment.UrlBase}${environment.eliminarHistoria}` + id
-    );
+    return this.http
+      .delete(`${environment.UrlBase}${environment.eliminarHistoria}` + id)
+      .pipe(
+        tap((res) => {
+          console.log('respuesta ' + JSON.stringify(res));
+          this.eliminado.next(res);
+        })
+      );
   }
   validacionRol(id: string | null) {
     let respuesta;

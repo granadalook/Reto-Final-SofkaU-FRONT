@@ -18,8 +18,11 @@ export class HistoriasComponent implements OnInit {
   descripcion?: string;
   usuarios?: Array<UsuarioI>;
   public formularioHistoria: FormGroup = this.formBuilder.group({
-    textArea: ['', [Validators.required]],
+    tituloHistoriaUsuario: ['', [Validators.required]],
     selecDev: ['', [Validators.required]],
+    proyectoId: ['', [Validators.required]],
+    estimacion: ['', [Validators.required]],
+    descripcion: ['', [Validators.required]],
   });
   constructor(
     private sesionStorageService: SesionStorageService,
@@ -27,11 +30,13 @@ export class HistoriasComponent implements OnInit {
     private formBuilder: FormBuilder
   ) {
     this.newHistoria = {
-      descripcion: '',
       liderTecnicoId: this.sesionStorageService.getId(),
-      proyectoId: '0001',
-      desarrolladorId: ''.trim(),
+      descripcion: '',
+      proyectoId: '',
+      desarrolladorId: '',
       historiaUsuarioId: '',
+      tituloHistoriaUsuario: '',
+      estimacion: '',
     };
   }
   ngOnInit(): void {
@@ -48,10 +53,8 @@ export class HistoriasComponent implements OnInit {
   }
   nuevaHistoria() {
     this.historiasService.crearHistoria(this.newHistoria).subscribe((data) => {
- if (data) {
-  
-  
- }
+      if (data) {
+      }
     });
   }
   getUsuarios(rol: string) {

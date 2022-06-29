@@ -1,4 +1,3 @@
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { HistoriasService } from 'src/app/core/services/historiasService/historias.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
@@ -13,14 +12,23 @@ import { HistoriaI } from 'src/app/models/historia';
 export class HistoriasCarsComponent implements OnInit {
   historys?: Array<HistoriaI>;
   rol?: string | null;
+  fondo: string;
 
   constructor(
     private sesionStorageService: SesionStorageService,
     private historiasService: HistoriasService,
     private toastService: ToastService
-  ) {}
+  ) {
+    this.fondo = '';
+  }
 
   ngOnInit(): void {
+    console.log('this.fondo', this.fondo);
+    this.historiasService.eliminado$.subscribe((data) => {
+      if (data === null) {
+        this.getHistorias();
+      }
+    });
     this.historiasService.historia$.subscribe((data) => {
       if (data != null) {
         this.getHistorias();
