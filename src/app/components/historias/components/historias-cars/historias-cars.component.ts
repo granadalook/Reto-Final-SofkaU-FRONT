@@ -21,33 +21,23 @@ export class HistoriasCarsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.historiasService.historia$.subscribe((data) => {
+      if (data != null) {
+        this.getHistorias();
+      }
+    });
+
     this.rol = this.sesionStorageService.getRol();
     this.getHistorias();
   }
   getHistorias() {
-    if (this.rol === 'Arquitecto') {
-      this.historiasService.historiasPorArquitecto().subscribe((data) => {
+    this.historiasService
+      .validacionRol(this.sesionStorageService.getId())
+      ?.subscribe((data) => {
         this.historys = data;
-        console.log('data Arquitecto', data);
       });
-    }
-    if (this.rol === 'LiderTecnico') {
-      this.historiasService
-        .historiasPorLiderTecnico(this.sesionStorageService.getId())
-        .subscribe((data) => {
-          this.historys = data;
-          console.log(' data liderTecnico', data);
-        });
-    }
-    if (this.rol === 'Desarrollador') {
-      this.historiasService
-        .historiasPorDesarrollador(this.sesionStorageService.getId())
-        .subscribe((data) => {
-          this.historys = data;
-          console.log('data desarrollador', data);
-        });
-    }
   }
+
   eliminarHistoria(id: string) {
     this.historiasService.EliminarHistoria(id).subscribe((data) => {
       console.log('data', data);

@@ -5,12 +5,14 @@ import { HistoriasRoutingModule } from './historias-routing.module';
 import { HistoriasComponent } from './components/historias/historias.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HistoriasCarsComponent } from './components/historias-cars/historias-cars.component';
+import { TareasComponent } from './components/tareas/tareas.component';
 
 
 @NgModule({
   declarations: [
     HistoriasComponent,
-    HistoriasCarsComponent
+    HistoriasCarsComponent,
+    TareasComponent
   ],
   imports: [
     CommonModule,

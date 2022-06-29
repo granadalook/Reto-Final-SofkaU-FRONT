@@ -39,9 +39,19 @@ export class HistoriasComponent implements OnInit {
 
     this.getUsuarios('Desarrollador');
   }
+  getHistorias() {
+    this.historiasService
+      .validacionRol(this.sesionStorageService.getId())
+      ?.subscribe((data) => {
+        /* this.historys = data; */
+      });
+  }
   nuevaHistoria() {
     this.historiasService.crearHistoria(this.newHistoria).subscribe((data) => {
-      console.log('data', data);
+ if (data) {
+  
+  
+ }
     });
   }
   getUsuarios(rol: string) {

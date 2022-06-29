@@ -1,16 +1,21 @@
 <ng-container *ngFor="let history of historys">
-  <div class="card" style="width: 18rem">
+  <div class="card m-2" style="width: 20rem">
     <div class="card-body">
-      <h5 class="card-title">{{ history.proyectoId }}</h5>
-      <p class="card-text">{{ history.descripcion }}</p>
-      <ng-container *ngIf="rol != 'Desarrollador'">
-        <button
-          class="btn btn-danger"
-          (click)="eliminarHistoria(history.historiaUsuarioId)"
-        >
-          eliminar
-        </button>
-      </ng-container>
+      <div class="card" style="width: 18rem">
+        <div class="card-body">
+          <h5 class="card-title">{{ history.proyectoId }}</h5>
+          <p class="card-text">{{ history.descripcion }}</p>
+          <ng-container *ngIf="rol != 'Desarrollador'">
+            <button
+              class="btn btn-danger"
+              (click)="eliminarHistoria(history.historiaUsuarioId)"
+            >
+              eliminar
+            </button>
+          </ng-container>
+        </div>
+      </div>
+      <app-tareas></app-tareas>
     </div>
   </div>
 </ng-container>
