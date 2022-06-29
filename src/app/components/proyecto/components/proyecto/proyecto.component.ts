@@ -14,69 +14,19 @@ import { ProyectoI } from 'src/app/models/proyecto.interface';
 })
 export class ProyectoComponent implements OnInit {
 
-  Desarrolladores:UsuarioI[] | any;
+  proyectos: ProyectoI
 
-  Lideres:UsuarioI[] | any;
-
-  proyectoForm = new FormGroup({
-    nombre: new FormControl(''),
-    arquitectoId: new FormControl(this.sesionStorage.getId()),
-    liderTecnicoId: new FormControl(''),
-    desarrolladorId: new FormArray([
-      new FormControl('')
-    ]),
-  })
+  proyects: ProyectoI | any
 
   constructor(
     private toastService: ToastService,
     private api:ApiService,
-    private router:Router,
-    private activerouter:ActivatedRoute,
-    private sesionStorage:SesionStorageService,
-    private fb:FormBuilder
-
-    ) { }
+    private router:Router
+    ) { this.proyectos = {nombre: '100 de cilantro', arquitectoId: '010101', liderTecnicoId: '102030', desarrolladorId: ['0145214', '524879']},
+    {nombre: '100 de cilantro', arquitectoId: '010101', liderTecnicoId: '102030', desarrolladorId: ['0145214', '524879']}
+  }
 
   ngOnInit(): void {
-    let userRol1 = 'Desarrollador';
-    let userRol2 = 'LiderTecnico'
-    this.api.getUserByRol(userRol1).subscribe(data => this.Desarrolladores = data)
-    this.api.getUserByRol(userRol2).subscribe(data => this.Lideres = data)
-  }
-
-  postForm(form:ProyectoI){
-    if(this.proyectoForm.valid){
-      this.api.crearProyecto(form).subscribe(data => {
-        if(data){
-          this.toastService.showSuccessToast('Correcto', 'Proyecto Creado Exitosamente')
-          console.log('data:')
-          console.log(data)
-          setTimeout(()=>{
-            this.router.navigate(['homepage'])
-          }, 2000)
-        }
-      })
-      console.log(form)
-    }else{
-      this.toastService.showErrorToast('Error', 'Campos Inválidos')
-    }
-  }
-
-  getDesarrolladores(){
-    return this.proyectoForm.get('desarrolladorId') as FormArray;
-  }
-
-  addDesarrollador(){
-    const control = <FormArray>this.proyectoForm.controls['desarrolladorId']
-    control.push(new FormControl(''))
-  }
-
-  removerDesarrollador(index: number){
-    const control = <FormArray>this.proyectoForm.controls['desarrolladorId']
-    control.removeAt(index)
-  }
-
-  cancelar(){
-    this.router.navigate(['homepage'])
+    this.proyects = this.proyectos;
   }
 }
