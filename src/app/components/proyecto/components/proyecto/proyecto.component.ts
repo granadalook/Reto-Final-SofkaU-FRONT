@@ -18,14 +18,18 @@ export class ProyectoComponent implements OnInit {
 
   usuarios:UsuarioI[] | any
 
+  proyectoId: any
+
   constructor(
     private toastService: ToastService,
     private api:ApiService,
     private router:Router,
-    private sesionStorage:SesionStorageService
+    private sesionStorage:SesionStorageService,
+    private activerouter:ActivatedRoute
     ) { }
 
   ngOnInit(): void {
+    this.proyectoId = this.activerouter.snapshot.paramMap.get('id');
     this.api.getUserById(this.userLogged).subscribe(data =>{
      this.usuarios = data.proyectosAsociados
      console.log('la data:')
@@ -34,7 +38,8 @@ export class ProyectoComponent implements OnInit {
   }
 
   editarProyecto(id:string){
-    console.log(id)
+    this.router.navigate(['proyecto/detalles', id])
   }
+
 
 }
