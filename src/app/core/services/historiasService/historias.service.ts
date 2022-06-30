@@ -101,7 +101,7 @@ export class HistoriasService {
   }
   actualizar(tareaActualizada: TareaI) {
     console.log('tareaActualizada', tareaActualizada);
-    return this.http.post<HistoriaI>(
+    return this.http.put<HistoriaI>(
       `${environment.UrlBase}${environment.editarTarea}`,
       tareaActualizada
     );

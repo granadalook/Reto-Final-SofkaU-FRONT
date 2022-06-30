@@ -37,6 +37,7 @@ export class HistoriasComponent implements OnInit {
       historiaUsuarioId: '',
       tituloHistoriaUsuario: '',
       estimacion: '',
+      porcentajeDeAvance: '',
       tareas: [
         {
           desarrolladorId: '',
@@ -45,6 +46,7 @@ export class HistoriasComponent implements OnInit {
           nombreTarea: '',
           estadoTarea: false,
           tareaId: '',
+          completa:false
         },
       ],
     };

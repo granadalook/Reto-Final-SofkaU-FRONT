@@ -33,6 +33,7 @@ export class TareasComponent implements OnInit {
       historiaUsuarioId: '',
       estadoTarea: false,
       tareaId: '',
+      completa: false,
     };
   }
   ngOnInit(): void {}
@@ -55,8 +56,9 @@ export class TareasComponent implements OnInit {
       desarrolladorId: tarea.desarrolladorId,
       nombreTarea: tarea.nombreTarea,
       descripcionTarea: tarea.descripcionTarea,
-      estadoTarea: true,
+      estadoTarea: false,
       historiaUsuarioId: tarea.historiaUsuarioId,
+      completa: true,
     };
     this.nuevaTarea.estadoTarea = true;
     this.HistoriasService.actualizar(tareaTrue).subscribe((data) => {
