@@ -62,7 +62,11 @@ export class TareasComponent implements OnInit {
     };
     this.nuevaTarea.estadoTarea = true;
     this.HistoriasService.actualizar(tareaTrue).subscribe((data) => {
-      this.nuevaTareaCreada.emit();
+      console.log('data', data);
+      this.HistoriasService.actualizarHistoria(data).subscribe((data) => {
+        console.log('data', data);
+        this.nuevaTareaCreada.emit();
+      });
     });
   }
 }
