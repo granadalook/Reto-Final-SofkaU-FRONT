@@ -15,6 +15,7 @@ export class TareasComponent implements OnInit {
   nuevaTarea: TareaI;
   tareas?: Array<TareaI>;
   historiaId?: string;
+  done: boolean = false;
   public formularioHistoria: FormGroup = this.formBuilder.group({
     tituloHistoriaUsuario: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
@@ -29,21 +30,22 @@ export class TareasComponent implements OnInit {
       nombreTarea: '',
       descripcionTarea: '',
       historiaUsuarioId: '',
+      estadoTarea: this.done,
     };
   }
   ngOnInit(): void {
-    console.log('this.item 12 ', this.item);
+    console.log('this.done anres', this.done);
   }
   clearTarea() {
     this.nuevaTarea.desarrolladorId = this.sesionStorageService.getId();
     this.nuevaTarea.historiaUsuarioId = this.item;
     this.HistoriasService.crearTarea(this.nuevaTarea).subscribe((data) => {
       this.tareas = data.tareas;
-      console.log('tareas respuesta', this.tareas);
     });
   }
-  cambioEstado(){
-    
 
+  cambioEstado() {
+    this.done = true;
+    
   }
 }

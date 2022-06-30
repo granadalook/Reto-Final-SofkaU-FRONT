@@ -3,4 +3,5 @@ export interface TareaI {
   nombreTarea: string;
   descripcionTarea: string;
   historiaUsuarioId?: string | null;
+  estadoTarea: boolean;
 }

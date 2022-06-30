@@ -35,7 +35,6 @@ export class AutenticacionService {
       )
       .pipe(
         tap((res) => {
-          console.log(res);
           this.user.next(res);
         })
       );

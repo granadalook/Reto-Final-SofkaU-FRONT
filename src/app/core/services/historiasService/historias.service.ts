@@ -91,12 +91,6 @@ export class HistoriasService {
   }
 
   crearTarea(tarea?: TareaI) {
-    console.log('tarea servicio', tarea);
-    console.log(
-      'ruta',
-      `${environment.UrlBase}${environment.crearTarea}`,
-      tarea
-    );
     return this.http.post<HistoriaI>(
       `${environment.UrlBase}${environment.crearTarea}`,
       tarea
