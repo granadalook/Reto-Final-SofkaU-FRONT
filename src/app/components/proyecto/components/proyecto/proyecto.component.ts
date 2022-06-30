@@ -41,5 +41,8 @@ export class ProyectoComponent implements OnInit {
     this.router.navigate(['proyecto/detalles', id])
   }
 
-
+  eliminar(id:string){
+    console.log(id)
+    this.api.deleteProyecto(id).subscribe(data => console.log(data))
+  }
 }
