@@ -37,6 +37,14 @@ export class HistoriasComponent implements OnInit {
       historiaUsuarioId: '',
       tituloHistoriaUsuario: '',
       estimacion: '',
+      tareas: [
+        {
+          desarrolladorId: '',
+          descripcionTarea: '',
+          historiaUsuarioId: '',
+          nombreTarea: '',
+        },
+      ],
     };
   }
   ngOnInit(): void {
@@ -47,9 +55,7 @@ export class HistoriasComponent implements OnInit {
   getHistorias() {
     this.historiasService
       .validacionRol(this.sesionStorageService.getId())
-      ?.subscribe((data) => {
-        /* this.historys = data; */
-      });
+      ?.subscribe((data) => {});
   }
   nuevaHistoria() {
     this.historiasService.crearHistoria(this.newHistoria).subscribe((data) => {

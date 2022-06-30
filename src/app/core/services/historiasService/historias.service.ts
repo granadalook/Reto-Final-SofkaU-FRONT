@@ -5,6 +5,7 @@ import { UsuarioI } from 'src/app/models/usuario';
 import { environment } from 'src/environments/environment';
 import { SesionStorageService } from '../SesionStorage/sesion-storage.service';
 import { BehaviorSubject, tap } from 'rxjs';
+import { TareaI } from 'src/app/models/tarea';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,8 @@ export class HistoriasService {
   public historia$ = this.historia.asObservable();
   private eliminado = new BehaviorSubject({});
   public eliminado$ = this.eliminado.asObservable();
+  private historiaId = new BehaviorSubject('');
+  public historiaId$ = this.historiaId.asObservable();
   constructor(
     private http: HttpClient,
     private sesionStorageService: SesionStorageService
@@ -29,7 +32,6 @@ export class HistoriasService {
       )
       .pipe(
         tap((res) => {
-          console.log('respuesta ' + JSON.stringify(res));
           this.historia.next(res);
         })
       );
@@ -44,7 +46,6 @@ export class HistoriasService {
       .delete(`${environment.UrlBase}${environment.eliminarHistoria}` + id)
       .pipe(
         tap((res) => {
-          console.log('respuesta ' + JSON.stringify(res));
           this.eliminado.next(res);
         })
       );
@@ -87,5 +88,22 @@ export class HistoriasService {
         );
     }
     return respuesta;
+  }
+
+  crearTarea(tarea?: TareaI) {
+    console.log('tarea servicio', tarea);
+    console.log(
+      'ruta',
+      `${environment.UrlBase}${environment.crearTarea}`,
+      tarea
+    );
+    return this.http.post<HistoriaI>(
+      `${environment.UrlBase}${environment.crearTarea}`,
+      tarea
+    );
+  }
+
+  traerHistoriaId(id: string) {
+    this.historiaId.next(id);
   }
 }

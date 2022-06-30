@@ -12,18 +12,14 @@ import { HistoriaI } from 'src/app/models/historia';
 export class HistoriasCarsComponent implements OnInit {
   historys?: Array<HistoriaI>;
   rol?: string | null;
-  fondo: string;
 
   constructor(
     private sesionStorageService: SesionStorageService,
     private historiasService: HistoriasService,
     private toastService: ToastService
-  ) {
-    this.fondo = '';
-  }
+  ) {}
 
   ngOnInit(): void {
-    console.log('this.fondo', this.fondo);
     this.historiasService.eliminado$.subscribe((data) => {
       if (data === null) {
         this.getHistorias();
@@ -58,4 +54,5 @@ export class HistoriasCarsComponent implements OnInit {
       }
     });
   }
+
 }
