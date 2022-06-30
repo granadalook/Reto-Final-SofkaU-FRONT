@@ -13,6 +13,9 @@
                 <div class="form-outline mb-3">
                   <label class="form-label" for="form3Example1cg">Nombre del Proyecto</label>
                   <input type="text" id="form3Example1cg" class="form-control form-control-lg" formControlName="nombre"/>
+                  <div class="errores" *ngIf="proyectoForm.get('nombre')?.invalid && proyectoForm.get('nombre')?.dirty || proyectoForm.get('nombre')?.touched">
+                    <span *ngIf="proyectoForm.get('nombre')?.hasError?.('required')">campo requerido</span>
+                  </div>
                 </div>
 
                 <div class="mb-4">
@@ -22,6 +25,8 @@
                   </select>
                 </div>
 
+<!--esto es para agregar desarrolladores al proyecto pero no se está usando por el momento-->
+<!--
                   <div formArrayName="desarrolladorId">
                     <div class="mb-4" *ngFor="let item of getDesarrolladores().controls; index as i">
                       <label for="rol" class="form-label">Asignar Desarrollador</label>
@@ -31,7 +36,7 @@
                     </div>
                   </div>
                   <a class=" btn-link btn-sm" style="cursor:pointer;" (click)="addDesarrollador()">Agregar Otro Desarrollador</a>
-
+-->
                 <div class="d-flex justify-content-center">
                   <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Crear Proyecto</button>
                 </div>

@@ -1,8 +1,8 @@
 <ng-container *ngFor="let history of historys">
-  <div class="card m-1" style="width: 13rem">
+  <div class="card m-1 border border-2" style="width: 13rem">
     <div class="card-body p-1">
       <div
-        class="card mb-3"
+        class="card centro mb-3"
         [ngClass]="{
           'text-bg-success':
             history.estimacion === '1' || history.estimacion === '3',
@@ -13,8 +13,11 @@
         style="max-width: 13rem"
       >
         <div class="card-header d-flex flex-column p-1">
-          <div class="fw-bold text-uppercase">
-            {{ history.tituloHistoriaUsuario }}
+          <div class="d-flex justify-content-between">
+            <div class="fw-bold text-uppercase">
+              {{ history.tituloHistoriaUsuario }}
+            </div>
+            <p class="fw-bold">{{ history.porcentajeDeAvance }}%</p>
           </div>
           <div class="d-flex justify-content-start">
             <div class="me-1">Estimacion:</div>
@@ -53,6 +56,8 @@
       <app-tareas
         [item]="history.historiaUsuarioId"
         [tituloHistoriausuario]="history.tituloHistoriaUsuario"
+        [tareas]="history.tareas"
+        (nuevaTareaCreada)="nuevaTareaCreada()"
       ></app-tareas>
     </div>
   </div>

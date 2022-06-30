@@ -7,18 +7,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HistoriasCarsComponent } from './components/historias-cars/historias-cars.component';
 import { TareasComponent } from './components/tareas/tareas.component';
 
-
 @NgModule({
-  declarations: [
-    HistoriasComponent,
-    HistoriasCarsComponent,
-    TareasComponent
-  ],
+  declarations: [HistoriasComponent, HistoriasCarsComponent, TareasComponent],
   imports: [
     CommonModule,
     HistoriasRoutingModule,
     FormsModule,
-        ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class HistoriasModule { }
+export class HistoriasModule {}
