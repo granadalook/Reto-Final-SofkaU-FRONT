@@ -8,5 +8,6 @@ export interface HistoriaI {
   tituloHistoriaUsuario: string;
   estimacion: string;
   porcentajeDeAvance: '';
+  estado: string;
   tareas: [TareaI];
 }

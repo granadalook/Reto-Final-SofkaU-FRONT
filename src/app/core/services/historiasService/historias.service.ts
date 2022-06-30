@@ -96,9 +96,7 @@ export class HistoriasService {
       tarea
     );
   }
-  traerHistoriaId(id: string) {
-    this.historiaId.next(id);
-  }
+
   actualizarHistoria(histiroa: HistoriaI) {
     return this.http.put(
       `${environment.UrlBase}${environment.actualizarHistoria}`,

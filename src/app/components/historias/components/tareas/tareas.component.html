@@ -3,20 +3,63 @@
     <div class="card-header d-flex flex-column p-1 fw-bold text-uppercase">
       {{ tituloHistoriausuario }} / {{ tarea.nombreTarea }}
     </div>
-
     <div class="card-body p-1">
-      <p class="card-text m-0 d-flex justify-content-between">
-        {{ tarea.descripcionTarea
-        }}<button type="button" class="btn" (click)="cambioEstado(tarea)">
+      <div>
+        <button
+          type="button"
+          class="btn mx-1 botonCars"
+          [ngClass]="{ sombra: tarea.estado === 'TO-DO' }"
+          (click)="cambioEstadoTodo(tarea)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/Next-Blue-2-icon.png"
+            alt=""
+          />
+        </button>
+        <button
+          type="button"
+          class="btn mx-1 botonCars"
+          [ngClass]="{ sombra: tarea.estado === 'DOING' }"
+          (click)="cambioEstadoDoing(tarea)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/Sync-Orange-icon.png"
+            alt=""
+          />
+        </button>
+        <button
+          type="button"
+          class="btn mx-1 botonCars"
+          [ngClass]="{ sombra: tarea.estado === 'TESTING' }"
+          (click)="cambioEstadoTesting(tarea)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/Danger-icon.png"
+            alt=""
+          />
+        </button>
+        <button
+          type="button"
+          class="btn mx-1 botonCars"
+          [ngClass]="{ sombra: tarea.estado === 'DONE' }"
+          (click)="cambioEstadoDone(tarea)"
+        >
           <img
             class="iconoLogo"
             src="../../../../../assets/icon/accept-icon.png"
             alt=""
           />
         </button>
+      </div>
+      <p class="card-text m-0 d-flex justify-content-between">
+        {{ tarea.descripcionTarea }}
       </p>
-    </div></div
-></ng-container>
+    </div>
+  </div></ng-container
+>
 
 <!-- Modal -->
 <div

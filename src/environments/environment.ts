@@ -20,6 +20,7 @@ export const environment = {
   AsignarProyecto: '/proyecto/asignar',
   ListarProyectoPorId: '/proyecto/',
   EliminarProyecto: '/eliminarProyecto/'
+  
 
 
 
