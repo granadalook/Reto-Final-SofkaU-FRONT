@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark bg-dark d-flex justify-content-around">
-  <div class="m-3" >
+  <div class="m-3">
     <img
       width="106"
       height="32"
@@ -11,11 +11,21 @@
   <div>
     <h2 class="text-light">{{ usuario?.nombreCompleto }}</h2>
   </div>
-  <div class="d-flex justify-content-evenly">
+  <div class="d-flex flex-wrap">
     <ng-container *ngIf="loggueado">
       <button
         class="btn btn-outline-secondary m-1"
         type="button"
+
+        routerLink="/historias"
+      >
+        Historias de usuario
+      </button>
+   
+      <button
+        class="btn btn-outline-secondary m-1"
+        type="button"
+
         routerLink="/homepage"
       >
         Home
@@ -35,17 +45,10 @@
         >
           Proyectos
         </button>
-
-
       </ng-container>
-      <button
-        class="btn btn-outline-danger m-1"
-        type="button"
-        (click)="cerrarSesion()"
-      >
-        Cerrar sesión
+       <button class="btn m-1" type="button" (click)="cerrarSesion()">
+        <img src="../../../../assets/icon/Windows-Turn-Off-icon.png" alt="" />
       </button>
     </ng-container>
-    >
   </div>
 </nav>
