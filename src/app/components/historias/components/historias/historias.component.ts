@@ -44,6 +44,7 @@ export class HistoriasComponent implements OnInit {
           historiaUsuarioId: '',
           nombreTarea: '',
           estadoTarea: false,
+          tareaId: '',
         },
       ],
     };

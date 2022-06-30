@@ -53,6 +53,8 @@
       <app-tareas
         [item]="history.historiaUsuarioId"
         [tituloHistoriausuario]="history.tituloHistoriaUsuario"
+        [tareas]="history.tareas"
+        (nuevaTareaCreada)="nuevaTareaCreada()"
       ></app-tareas>
     </div>
   </div>

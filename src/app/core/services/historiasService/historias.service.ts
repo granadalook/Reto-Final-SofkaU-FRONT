@@ -96,8 +96,14 @@ export class HistoriasService {
       tarea
     );
   }
-
   traerHistoriaId(id: string) {
     this.historiaId.next(id);
+  }
+  actualizar(tareaActualizada: TareaI) {
+    console.log('tareaActualizada', tareaActualizada);
+    return this.http.post<HistoriaI>(
+      `${environment.UrlBase}${environment.editarTarea}`,
+      tareaActualizada
+    );
   }
 }

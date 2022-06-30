@@ -1,4 +1,5 @@
 export interface TareaI {
+  tareaId: '';
   desarrolladorId: string | null;
   nombreTarea: string;
   descripcionTarea: string;
