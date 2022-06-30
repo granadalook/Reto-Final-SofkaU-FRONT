@@ -53,7 +53,6 @@ export class HistoriasComponent implements OnInit {
   }
   ngOnInit(): void {
     this.rol = this.sesionStorageService.getRol();
-
     this.getUsuarios('Desarrollador');
   }
   getHistorias() {
