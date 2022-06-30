@@ -1,3 +1,4 @@
+import { TareaI } from './tarea';
 export interface HistoriaI {
   descripcion: string;
   liderTecnicoId: string | null;
@@ -6,4 +7,5 @@ export interface HistoriaI {
   historiaUsuarioId: string;
   tituloHistoriaUsuario: string;
   estimacion: string;
+  tareas: [TareaI];
 }
