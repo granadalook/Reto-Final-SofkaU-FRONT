@@ -12,6 +12,8 @@ import { ProyectoI } from 'src/app/models/proyecto.interface';
 })
 export class ApiService {
 
+  arqui: UsuarioI | any
+
   constructor(private http:HttpClient) { }
 
   postUser(form:RegisterI):Observable<ResponseI>{
@@ -22,11 +24,29 @@ export class ApiService {
     return this.http.get<UsuarioI>(`${environment.UrlBase}${environment.ListarPorRol}` + rol)
   }
 
-  crearProyecto(form:ProyectoI):Observable<ResponseI>{
-    return this.http.post<ResponseI>(`${environment.UrlBase}${environment.CrearProyecto}`, form)
+  crearProyecto(form:ProyectoI):Observable<ProyectoI>{
+    return this.http.post<ProyectoI>(`${environment.UrlBase}${environment.CrearProyecto}`, form)
   }
 
   getUserById(id:any):Observable<UsuarioI>{
     return this.http.get<UsuarioI>(`${environment.UrlBase}${environment.ListarPorId}` + id)
+  }
+
+  postProyectoUser(user:UsuarioI):Observable<ResponseI>{
+    return this.http.post<ResponseI>(`${environment.UrlBase}${environment.AsignarProyecto}`, user)
+  }
+
+  getProyectoById(id:any):Observable<ProyectoI>{
+    return this.http.get<ProyectoI>(`${environment.UrlBase}${environment.ListarProyectoPorId}` + id)
+  }
+
+  deleteProyecto(id:string, form:ProyectoI):Observable<ResponseI>{
+    let Options = {
+      Headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      }),
+      body: form
+    }
+    return this.http.delete<ResponseI>(`${environment.UrlBase}${environment.EliminarProyecto}` + id, Options)
   }
 }

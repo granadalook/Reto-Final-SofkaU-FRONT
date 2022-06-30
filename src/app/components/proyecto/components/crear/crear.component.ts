@@ -50,6 +50,31 @@ export class CrearComponent implements OnInit {
           this.toastService.showSuccessToast('Correcto', 'Proyecto Creado Exitosamente')
           console.log('data:')
           console.log(data)
+          //asignando el id del arquitecto a una variable
+          let arqui = data.arquitectoId
+          let lider = data.liderTecnicoId
+          //asignando el id del proyecto a una variable
+          let idProyecto = data.proyectoId
+          this.api.getUserById(arqui).subscribe(data => {
+            //asignando los datos del arquitecto a una variable
+            let archi = data
+            //se limpia el array de proyectos
+            archi.idProyectosAsociados = []
+            //se agrega el id del proyecto actual al arreglo
+            archi.idProyectosAsociados.push(idProyecto)
+            //se envían los datos al backend
+            this.api.postProyectoUser(archi).subscribe(data => console.log(data))
+          })
+          this.api.getUserById(lider).subscribe(data => {
+            //asignando los datos del lider Tecnico a una variable
+            let lider = data
+            //se limpia el array de proyectos
+            lider.idProyectosAsociados = []
+            //se agrega el id del proyecto actual al arreglo
+            lider.idProyectosAsociados.push(idProyecto)
+            //se envían los datos al backend
+            this.api.postProyectoUser(lider).subscribe(data => console.log(data))
+          })
           setTimeout(()=>{
             this.router.navigate(['proyecto'])
           }, 2000)

@@ -1,1 +1,54 @@
-<p>detalles works!</p>
+<app-toaster></app-toaster>
+<section class="vh-100 bg-image">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-4 fw-bold">Detalles del Proyecto</h2>
+              <p>{{datosProyecto | json}}</p>
+              <form [formGroup]="detallesForm">
+
+                <div class="form-outline mb-3">
+                  <label class="form-label" for="form3Example1cg">Nombre del Proyecto</label>
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" formControlName="nombre"/>
+                </div>
+
+                <div class="form-outline mb-3">
+                  <label class="form-label" for="form3Example1cg">Lider Técnico</label>
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" formControlName="liderTecnicoId"/>
+                </div>
+
+                <div formArrayName="desarrolladorId">
+                  <div *ngFor="let desarrollador of getDesarrolladores().controls; index as i">
+                    <div class="form-outline mb-3">
+                      <label class="form-label" formControlName="{{i}}" for="form3Example1cg">Desarrolladores</label>
+                      <input type="text" id="form3Example1cg" class="form-control form-control-lg" />
+                    </div>
+                  </div>
+                </div>
+
+
+<!--
+                <div formArrayName="desarrolladorId">
+                  <div *ngFor="let desarrollador of desarrolladores">
+                    <div class="mb-3">
+                      <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{desarrollador.nombre}}</textarea>
+                    </div>
+                  </div>
+                </div>-->
+                <div class="d-flex justify-content-center">
+                  <button type="button" class="btn btn-secondary btn-block btn-lg gradient-custom-5 text-body" >Cancelar</button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -4,6 +4,7 @@ export interface UsuarioI {
   email: string;
   password: string;
   rol: string;
+  idProyectosAsociados: string[];
   proyectosAsociados: any[];
   historiasDeUsuario: any[];
 }
