@@ -34,7 +34,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   editarProyecto(id:string){
-    console.log(id)
+    this.router.navigate(['proyecto/detalles', id])
   }
 
 }

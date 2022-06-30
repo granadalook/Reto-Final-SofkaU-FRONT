@@ -6,5 +6,6 @@ export const environment = {
   crearUsuario: '/usuario/crear',
   ListarPorRol: '/usuario/listarPorRol/',
   ListarPorId: '/usuario/',
-  CrearProyecto: '/proyecto/crear'
+  CrearProyecto: '/proyecto/crear',
+  AsignarProyecto: '/proyecto/asignar'
 };
