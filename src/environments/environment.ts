@@ -15,12 +15,13 @@ export const environment = {
   crearTarea: '/tarea/crear',
   ListarPorId: '/usuario/',
   CrearProyecto: '/proyecto/crear',
-<<<<<<< HEAD
+  editarTarea: '/tarea/editar',
+  actualizarHistoria: '/historia/actualizar',
   AsignarProyecto: '/proyecto/asignar',
   ListarProyectoPorId: '/proyecto/',
   EliminarProyecto: '/eliminarProyecto/'
-=======
 
 
->>>>>>> 733d13e5f462da2b90cef58cb814efaf7b62be91
+
+
 };

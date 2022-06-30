@@ -37,12 +37,16 @@ export class HistoriasComponent implements OnInit {
       historiaUsuarioId: '',
       tituloHistoriaUsuario: '',
       estimacion: '',
+      porcentajeDeAvance: '',
       tareas: [
         {
           desarrolladorId: '',
           descripcionTarea: '',
           historiaUsuarioId: '',
           nombreTarea: '',
+          estadoTarea: false,
+          tareaId: '',
+          completa:false
         },
       ],
     };
@@ -65,7 +69,6 @@ export class HistoriasComponent implements OnInit {
   }
   getUsuarios(rol: string) {
     this.historiasService.traerusuarios(rol).subscribe((data) => {
-      console.log('data', data);
       this.usuarios = data;
     });
   }

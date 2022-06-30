@@ -54,5 +54,7 @@ export class HistoriasCarsComponent implements OnInit {
       }
     });
   }
-
+  nuevaTareaCreada() {
+    this.getHistorias();
+  }
 }

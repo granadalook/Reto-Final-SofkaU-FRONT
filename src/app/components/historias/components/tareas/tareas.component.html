@@ -1,5 +1,5 @@
 <ng-container *ngFor="let tarea of tareas">
-  <div class="card mb-3 border-dark" style="max-width: 13rem">
+  <div class="card centro mb-3 border-dark" style="max-width: 13rem">
     <div class="card-header d-flex flex-column p-1 fw-bold text-uppercase">
       {{ tituloHistoriausuario }} / {{ tarea.nombreTarea }}
     </div>
@@ -7,7 +7,7 @@
     <div class="card-body p-1">
       <p class="card-text m-0 d-flex justify-content-between">
         {{ tarea.descripcionTarea
-        }}<button type="button" class="btn" (click)="cambioEstado()">
+        }}<button type="button" class="btn" (click)="cambioEstado(tarea)">
           <img
             class="iconoLogo"
             src="../../../../../assets/icon/accept-icon.png"
@@ -51,7 +51,6 @@
                 class="form-control form-control-lg"
                 placeholder="Titulo de la tarea"
                 formControlName="tituloHistoriaUsuario"
-                [(ngModel)]="this.nuevaTarea.nombreTarea"
               />
             </div>
             <div class="mb-3">
@@ -59,7 +58,6 @@
                 >Descripcion de la tarea</label
               >
               <textarea
-                [(ngModel)]="this.nuevaTarea.descripcionTarea"
                 class="form-control"
                 formControlName="descripcion"
                 placeholder="Descripcion detallada de la tarea"
