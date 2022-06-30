@@ -36,4 +36,17 @@ export class ApiService {
     return this.http.post<ResponseI>(`${environment.UrlBase}${environment.AsignarProyecto}`, user)
   }
 
+  getProyectoById(id:any):Observable<ProyectoI>{
+    return this.http.get<ProyectoI>(`${environment.UrlBase}${environment.ListarProyectoPorId}` + id)
+  }
+
+  deleteProyecto(id:string, form:ProyectoI):Observable<ResponseI>{
+    let Options = {
+      Headers: new HttpHeaders({
+        'Content-type': 'application/json'
+      }),
+      body: form
+    }
+    return this.http.delete<ResponseI>(`${environment.UrlBase}${environment.EliminarProyecto}` + id, Options)
+  }
 }

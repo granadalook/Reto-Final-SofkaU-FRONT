@@ -7,5 +7,7 @@ export const environment = {
   ListarPorRol: '/usuario/listarPorRol/',
   ListarPorId: '/usuario/',
   CrearProyecto: '/proyecto/crear',
-  AsignarProyecto: '/proyecto/asignar'
+  AsignarProyecto: '/proyecto/asignar',
+  ListarProyectoPorId: '/proyecto/',
+  EliminarProyecto: '/eliminarProyecto/'
 };
