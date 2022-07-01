@@ -10,16 +10,27 @@ import { environment } from 'src/environments/environment';
 export class TareaService {
   constructor(private http: HttpClient) {}
   actualizarTarea(tareaActualizada: {}) {
-    console.log('tareaActualizada', tareaActualizada);
     return this.http.put<HistoriaI>(
       `${environment.UrlBase}${environment.editarTarea}`,
       tareaActualizada
     );
   }
+  editarTarea(tareaActualizada: {}) {
+    return this.http.put<HistoriaI>(
+      `${environment.UrlBase}${environment.editarTarea}`,
+      tareaActualizada
+    );
+  }
+
   eliminarTarea(IdTarea: string) {
-    console.log('tareaActualizada', IdTarea);
     return this.http.delete(
       `${environment.UrlBase}${environment.eliminarTarea}` + IdTarea
+    );
+  }
+
+  traerTareaPorId(id: string) {
+    return this.http.get<TareaI>(
+      `${environment.UrlBase}${environment.listarTareaPorId}` + id
     );
   }
 }

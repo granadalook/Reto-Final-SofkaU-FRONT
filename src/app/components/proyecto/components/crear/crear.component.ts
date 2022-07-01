@@ -48,8 +48,7 @@ export class CrearComponent implements OnInit {
       this.api.crearProyecto(form).subscribe(data => {
         if(data){
           this.toastService.showSuccessToast('Correcto', 'Proyecto Creado Exitosamente')
-          console.log('data:')
-          console.log(data)
+        
           //asignando el id del arquitecto a una variable
           let arqui = data.arquitectoId
           let lider = data.liderTecnicoId
@@ -63,7 +62,7 @@ export class CrearComponent implements OnInit {
             //se agrega el id del proyecto actual al arreglo
             archi.idProyectosAsociados.push(idProyecto)
             //se envían los datos al backend
-            this.api.postProyectoUser(archi).subscribe(data => console.log(data))
+            this.api.postProyectoUser(archi).subscribe(data => )
           })
           this.api.getUserById(lider).subscribe(data => {
             //asignando los datos del lider Tecnico a una variable
@@ -73,14 +72,14 @@ export class CrearComponent implements OnInit {
             //se agrega el id del proyecto actual al arreglo
             lider.idProyectosAsociados.push(idProyecto)
             //se envían los datos al backend
-            this.api.postProyectoUser(lider).subscribe(data => console.log(data))
+            this.api.postProyectoUser(lider).subscribe(data => )
           })
           setTimeout(()=>{
             this.router.navigate(['proyecto'])
           }, 2000)
         }
       })
-      console.log(form)
+    
     }else{
       this.toastService.showErrorToast('Error', 'Campos Inválidos')
     }

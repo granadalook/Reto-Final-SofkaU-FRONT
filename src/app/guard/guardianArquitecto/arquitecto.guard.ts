@@ -25,8 +25,7 @@ export class ArquitectoGuard implements CanActivate {
     | boolean
     | UrlTree {
     this.autenticacionService.user$.subscribe((res) => (this.user$ = res));
-    console.log('this.user$.rol', this.user$?.rol);
-    if (this.user$?.rol === 'Arquitecto' || this.user$?.rol === 'LiderTecnico') {
+        if (this.user$?.rol === 'Arquitecto' || this.user$?.rol === 'LiderTecnico') {
       return true;
     }
     this.toastService.showWarningToast(

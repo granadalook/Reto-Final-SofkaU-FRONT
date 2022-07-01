@@ -4,6 +4,6 @@ export interface TareaI {
   nombreTarea: string;
   descripcionTarea: string;
   historiaUsuarioId?: string | null;
-  estado:string;
+  estado: string;
   completa: boolean;
 }
