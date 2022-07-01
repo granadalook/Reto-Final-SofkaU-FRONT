@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { HistoriasService } from 'src/app/core/services/historiasService/historias.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
@@ -12,6 +13,7 @@ import { HistoriaI } from 'src/app/models/historia';
 export class HistoriasCarsComponent implements OnInit {
   historys?: Array<HistoriaI>;
   rol?: string | null;
+  eliminado$?: Subscription;
 
   constructor(
     private sesionStorageService: SesionStorageService,
@@ -20,7 +22,7 @@ export class HistoriasCarsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.historiasService.eliminado$.subscribe((data) => {
+    this.eliminado$ = this.historiasService.eliminado$.subscribe((data) => {
       if (data === null) {
         this.getHistorias();
       }
@@ -33,6 +35,9 @@ export class HistoriasCarsComponent implements OnInit {
 
     this.rol = this.sesionStorageService.getRol();
     this.getHistorias();
+  }
+  ngOnDestroy() {
+    this.eliminado$?.unsubscribe();
   }
   getHistorias() {
     this.historiasService

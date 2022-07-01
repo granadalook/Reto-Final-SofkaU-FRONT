@@ -4,7 +4,29 @@
 .btn {
   border: none;
 }
+
+.botonCars {
+  padding: 0px;
+  border-radius: 60%;
+}
 .centro:hover {
   -webkit-box-shadow: 0px 0px 5px 5px rgba(64, 64, 64, 0.55);
   box-shadow: 0px 0px 5px 5px rgba(64, 64, 64, 0.55);
+  transform: rotate(3deg);
+}
+
+.sombra {
+  -webkit-box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 6px 3px rgba(0, 0, 0, 0.6);
+  
+}
+
+.botonheader {
+  padding: 0px;
+  border-radius: 60%;
+}
+
+.sombraCard{
+  -webkit-box-shadow: inset 0px 0px 7px 2px #000000; 
+box-shadow: inset 0px 0px 7px 2px #000000;
 }

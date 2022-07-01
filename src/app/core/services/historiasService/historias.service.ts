@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { SesionStorageService } from '../SesionStorage/sesion-storage.service';
 import { BehaviorSubject, tap } from 'rxjs';
 import { TareaI } from 'src/app/models/tarea';
+import { ProyectoI } from 'src/app/models/proyecto.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -24,7 +25,6 @@ export class HistoriasService {
   ) {}
 
   crearHistoria(historia: HistoriaI) {
-    console.log('historia', historia);
     return this.http
       .post<HistoriaI>(
         `${environment.UrlBase}${environment.crearHistoria}`,
@@ -96,9 +96,7 @@ export class HistoriasService {
       tarea
     );
   }
-  traerHistoriaId(id: string) {
-    this.historiaId.next(id);
-  }
+
   actualizarHistoria(histiroa: HistoriaI) {
     return this.http.put(
       `${environment.UrlBase}${environment.actualizarHistoria}`,
@@ -107,10 +105,14 @@ export class HistoriasService {
   }
 
   actualizar(tareaActualizada: TareaI) {
-    console.log('tareaActualizada', tareaActualizada);
     return this.http.put<HistoriaI>(
       `${environment.UrlBase}${environment.editarTarea}`,
       tareaActualizada
+    );
+  }
+  traerProyectos() {
+    return this.http.get<Array<ProyectoI>>(
+      `${environment.UrlBase}${environment.listarproyectos}`
     );
   }
 }

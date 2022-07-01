@@ -1,40 +1,26 @@
-<div class="container-fluid">
-  <div class="row flex-nowrap">
-    <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-      <div
-        class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100"
-      >
-        <span class="fs-5 d-none d-sm-inline ms-1">{{ rol }}</span>
-
-        <ul
-          class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
-          id="menu"
+<section class="d-flex flex-nowrap">
+  <aside class="bg-dark text-white">
+    <div>
+      <span class="m-3">{{ rol }}</span>
+      <div class="d-flex justify-content-center">
+        <button
+          type="button"
+          class="btn"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
         >
-          <ng-container *ngIf="rol != 'Desarrollador'">
-            <li>
-              <button
-                type="button"
-                class="btn"
-                data-bs-toggle="modal"
-                data-bs-target="#staticBackdrop"
-              >
-                <img
-                  class="iconoLogo"
-                  src="../../../../../assets/icon/Actions-document-new-icon.png"
-                  alt=""
-                />
-                <span class="ms-1 d-none d-sm-inline">Crear Historia</span>
-              </button>
-            </li>
-          </ng-container>
-        </ul>
-        <hr />
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/Actions-document-new-icon.png"
+            alt=""
+          />
+          <span class="ms-1 d-none d-sm-inline">Crear Historia</span>
+        </button>
       </div>
     </div>
-    <app-historias-cars></app-historias-cars>
-    
-  </div>
-</div>
+  </aside>
+  <app-historias-cars></app-historias-cars>
+</section>
 
 <!-- modal -->
 <div
@@ -112,9 +98,12 @@
                 formControlName="proyectoId"
                 [(ngModel)]="this.newHistoria.proyectoId"
               >
-                <option value="001">002</option>
-                <option value="002">002</option>
-                <option value="003">003</option>
+                <option
+                  *ngFor="let proyecto of this.proyectos"
+                  value="{{ proyecto.proyectoId }}"
+                >
+                  {{ proyecto.nombre }}
+                </option>
               </select>
             </div>
             <div>

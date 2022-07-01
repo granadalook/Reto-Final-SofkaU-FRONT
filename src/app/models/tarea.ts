@@ -1,9 +1,9 @@
 export interface TareaI {
-  tareaId: '';
+  tareaId: string;
   desarrolladorId: string | null;
   nombreTarea: string;
   descripcionTarea: string;
   historiaUsuarioId?: string | null;
-  estadoTarea: boolean;
+  estado:string;
   completa: boolean;
 }

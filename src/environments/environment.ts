@@ -20,5 +20,8 @@ export const environment = {
   AsignarProyecto: '/proyecto/asignar',
   ListarProyectoPorId: '/proyecto/',
   EliminarProyecto: '/eliminarProyecto/',
+  listarproyectos: '/listarProyectos',
+  eliminarTarea: '/eliminarTarea/',
   ListarHistoriasPorIdProyecto: '/historia/obtenerPorProyecto/'
+
 };
