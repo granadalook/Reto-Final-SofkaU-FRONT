@@ -57,7 +57,7 @@ export class DetallesComponent implements OnInit {
     this.proyectoId = this.activerouter.snapshot.paramMap.get('id');
     this.api.getHistoriasByIdProyecto(this.proyectoId).subscribe(datos => {
       this.Historias = datos;
-      console.log('Historias:', this.Historias)
+
       this.historiasForm.setValue({
         'tituloHistoriaUsuario': JSON.parse(datos.tituloHistoriaUsuario)
       })
@@ -69,8 +69,7 @@ export class DetallesComponent implements OnInit {
       let idLider = data.liderTecnicoId
       //obtener los datos del lider tecnico
       this.api.getUserById(idLider).subscribe(data => {
-        console.log('data lider')
-        console.log(data)
+     
         this.detallesForm.setValue({
           'nombre': this.datosProyecto.nombre,
           'arquitectoId': this.datosProyecto.arquitectoId,
@@ -78,20 +77,18 @@ export class DetallesComponent implements OnInit {
         })
       })
 
-      console.log('historias')
-      console.log(this.historiasForm)
+
     })
   }
 
   postForm(form:ProyectoI){
-    console.log('form', form)
-    console.log('this.proyectoId', this.proyectoId)
+
     this.api.getUserById(form.desarrolladorId).subscribe(data => {
       let developer = data
       developer.idProyectosAsociados = []
       developer.idProyectosAsociados.push(this.proyectoId)
-      console.log('developer', developer)
-      this.api.postProyectoUser(developer).subscribe(data => console.log('dataFinal', data))
+
+      this.api.postProyectoUser(developer).subscribe(data => )
     })
     this.toastService.showSuccessToast('Correcto','Cambios Aceptados')
   }

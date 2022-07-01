@@ -39,17 +39,25 @@ export class HistoriasCarsComponent implements OnInit {
   ngOnDestroy() {
     this.eliminado$?.unsubscribe();
   }
+
   getHistorias() {
     this.historiasService
       .validacionRol(this.sesionStorageService.getId())
       ?.subscribe((data) => {
-        this.historys = data;
+        data.map((da) => {
+          this.historiasService
+            .actualizarHistoria(da)
+            .subscribe((datares) => {});
+        });
+        this.historys = data.sort((a, b) =>
+          a.tituloHistoriaUsuario.localeCompare(b.tituloHistoriaUsuario)
+        );
       });
   }
 
   eliminarHistoria(id: string) {
     this.historiasService.EliminarHistoria(id).subscribe((data) => {
-      console.log('data', data);
+    
       if (data === null) {
         this.toastService.showWarningToast(
           'Historia de usuario',

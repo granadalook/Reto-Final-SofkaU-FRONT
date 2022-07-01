@@ -44,7 +44,7 @@ export class ProyectoComponent implements OnInit {
     this.traerProyectosByUsuario()
     this.eliminando$ = this.api.eliminado$.subscribe(res => {
       this.eliminando = res
-      console.log('eliminando', this.eliminando)
+     
       if(this.eliminando === null){
         this.traerProyectosByUsuario()
       }
@@ -59,7 +59,7 @@ export class ProyectoComponent implements OnInit {
     this.proyectoId = this.activerouter.snapshot.paramMap.get('id');
     this.api.getUserById(this.userLogged).subscribe(data =>{
      this.usuarios = data.proyectosAsociados
-     console.log('la data', data)
+  
       })
   }
 
@@ -68,7 +68,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   eliminar(id:string){
-    this.api.deleteProyecto(id).subscribe(data => console.log(data))
+    this.api.deleteProyecto(id).subscribe(data => )
     this.toastService.showSuccessToast('Correcto', 'Proyecto Eliminado')
   }
 }

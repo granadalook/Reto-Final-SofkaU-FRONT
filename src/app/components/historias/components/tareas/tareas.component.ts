@@ -1,10 +1,8 @@
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HistoriasService } from 'src/app/core/services/historiasService/historias.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
 import { TareaService } from 'src/app/core/services/tarea/tarea.service';
-import { ToastService } from 'src/app/core/services/Toast/toast.service';
 import { TareaI } from 'src/app/models/tarea';
 
 @Component({
@@ -18,11 +16,18 @@ export class TareasComponent implements OnInit {
   @Input() tareas?: Array<TareaI>;
   @Output() nuevaTareaCreada = new EventEmitter<string>();
   nuevaTarea: TareaI;
-
+  editarTareaU: TareaI;
+  IdtareaEditada: string = '';
   historiaId?: string;
+  mostrar: boolean = false;
   public formularioHistoria: FormGroup = this.formBuilder.group({
     tituloHistoriaUsuario: ['', [Validators.required]],
     descripcion: ['', [Validators.required]],
+  });
+
+  public formEditarTarea: FormGroup = this.formBuilder.group({
+    tituloTarea: ['', [Validators.required]],
+    descripcionTarea: ['', [Validators.required]],
   });
   constructor(
     private HistoriasService: HistoriasService,
@@ -31,6 +36,15 @@ export class TareasComponent implements OnInit {
     private tareaService: TareaService
   ) {
     this.nuevaTarea = {
+      desarrolladorId: '',
+      nombreTarea: '',
+      descripcionTarea: '',
+      historiaUsuarioId: '',
+      estado: '',
+      tareaId: '',
+      completa: false,
+    };
+    this.editarTareaU = {
       desarrolladorId: '',
       nombreTarea: '',
       descripcionTarea: '',
@@ -54,6 +68,21 @@ export class TareasComponent implements OnInit {
       this.nuevaTareaCreada.emit();
     });
   }
+  /* cambioEstadoDone(tarea: TareaI) {
+    let estadoCambiado = {
+      tareaId: tarea.tareaId,
+      desarrolladorId: tarea.desarrolladorId,
+      nombreTarea: tarea.nombreTarea,
+      descripcionTarea: tarea.descripcionTarea,
+      estado: 'DONE',
+      historiaUsuarioId: tarea.historiaUsuarioId,
+        completa: true,
+    };
+    this.tareaService.actualizarTarea(estadoCambiado).subscribe((data) => {
+      this.tareaTerminada(tarea);
+      this.nuevaTareaCreada.emit();
+    });
+  } */
 
   tareaTerminada(tarea: TareaI) {
     let tareaTrue: TareaI = {
@@ -61,13 +90,14 @@ export class TareasComponent implements OnInit {
       desarrolladorId: tarea.desarrolladorId,
       nombreTarea: tarea.nombreTarea,
       descripcionTarea: tarea.descripcionTarea,
-      estado: tarea.estado,
       historiaUsuarioId: tarea.historiaUsuarioId,
+      estado: 'DONE',
       completa: true,
     };
-    this.nuevaTarea.completa = true;
+    this.mostrar = true;
+
     this.HistoriasService.actualizar(tareaTrue).subscribe((data) => {
-      this.HistoriasService.actualizarHistoria(data).subscribe((data) => {
+      this.HistoriasService.actualizarHistoria(data).subscribe((datares) => {
         this.nuevaTareaCreada.emit();
       });
     });
@@ -83,7 +113,6 @@ export class TareasComponent implements OnInit {
       historiaUsuarioId: tarea.historiaUsuarioId,
     };
     this.tareaService.actualizarTarea(estadoCambiado).subscribe((data) => {
-      console.log('data', data);
       this.nuevaTareaCreada.emit();
     });
   }
@@ -97,7 +126,6 @@ export class TareasComponent implements OnInit {
       historiaUsuarioId: tarea.historiaUsuarioId,
     };
     this.tareaService.actualizarTarea(estadoCambiado).subscribe((data) => {
-      console.log('data', data);
       this.nuevaTareaCreada.emit();
     });
   }
@@ -111,31 +139,36 @@ export class TareasComponent implements OnInit {
       historiaUsuarioId: tarea.historiaUsuarioId,
     };
     this.tareaService.actualizarTarea(estadoCambiado).subscribe((data) => {
-      console.log('data', data);
       this.nuevaTareaCreada.emit();
     });
   }
-  cambioEstadoDone(tarea: TareaI) {
-    let estadoCambiado = {
-      tareaId: tarea.tareaId,
-      desarrolladorId: tarea.desarrolladorId,
-      nombreTarea: tarea.nombreTarea,
-      descripcionTarea: tarea.descripcionTarea,
-      estado: 'DONE',
-      historiaUsuarioId: tarea.historiaUsuarioId,
-    };
-    this.tareaTerminada(tarea);
-    this.tareaService.actualizarTarea(estadoCambiado).subscribe((data) => {
-      console.log('data', data);
-      this.nuevaTareaCreada.emit();
-    });
-  }
-  eliminarTarea(idTarea: string) {
-    console.log('idtarea', idTarea);
-    this.tareaService.eliminarTarea(idTarea).subscribe((res) => {
-      console.log('res', res);
 
+  eliminarTarea(idTarea: string) {
+    this.tareaService.eliminarTarea(idTarea).subscribe((res) => {
       if (res === null) {
+        this.nuevaTareaCreada.emit();
+      }
+    });
+  }
+  IdEditarTarea(id: string) {
+    this.IdtareaEditada = id;
+    this.tareaService.traerTareaPorId(id).subscribe((res) => {
+      this.formEditarTarea.setValue({
+        tituloTarea: res.nombreTarea,
+        descripcionTarea: res.descripcionTarea,
+      });
+    });
+  }
+  editarTarea() {
+    this.editarTareaU.tareaId = this.IdtareaEditada;
+    this.editarTareaU.desarrolladorId = this.sesionStorageService.getId();
+    this.editarTareaU.historiaUsuarioId = this.item;
+    this.editarTareaU.nombreTarea =
+      this.formEditarTarea.get('tituloTarea')?.value;
+    this.editarTareaU.descripcionTarea =
+      this.formEditarTarea.get('descripcionTarea')?.value;
+    this.tareaService.editarTarea(this.editarTareaU).subscribe((data) => {
+      if (data) {
         this.nuevaTareaCreada.emit();
       }
     });

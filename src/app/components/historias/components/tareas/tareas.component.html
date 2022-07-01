@@ -10,9 +10,10 @@
       {{ tituloHistoriausuario }} / {{ tarea.nombreTarea }}
       <div class="d-flex justify-content-end">
         <button
-          type="button "
-          class="btn mx-1 botonheader"
-          (click)="eliminarTarea(tarea.tareaId)"
+          class="btn"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#editarTarea' + tarea.historiaUsuarioId"
+          (click)="IdEditarTarea(tarea.tareaId)"
         >
           <img
             class="iconoLogo"
@@ -38,6 +39,7 @@
         <button
           type="button"
           class="btn mx-1 botonCars"
+          [disabled]="tarea.estado === 'DONE'"
           [ngClass]="{ sombra: tarea.estado === 'TO-DO' }"
           (click)="cambioEstadoTodo(tarea)"
         >
@@ -50,6 +52,7 @@
         <button
           type="button"
           class="btn mx-1 botonCars"
+          [disabled]="tarea.estado === 'DONE'"
           [ngClass]="{ sombra: tarea.estado === 'DOING' }"
           (click)="cambioEstadoDoing(tarea)"
         >
@@ -62,6 +65,7 @@
         <button
           type="button"
           class="btn mx-1 botonCars"
+          [disabled]="tarea.estado === 'DONE'"
           [ngClass]="{ sombra: tarea.estado === 'TESTING' }"
           (click)="cambioEstadoTesting(tarea)"
         >
@@ -75,7 +79,7 @@
           type="button"
           class="btn mx-1 botonCars"
           [ngClass]="{ sombra: tarea.estado === 'DONE' }"
-          (click)="cambioEstadoDone(tarea)"
+          (click)="tareaTerminada(tarea)"
         >
           <img
             class="iconoLogo"
@@ -84,13 +88,12 @@
           />
         </button>
       </div>
-      <p class="card-text m-0 d-flex justify-content-between">
+      <p class="card-text m-0">
         {{ tarea.descripcionTarea }}
       </p>
     </div>
   </div></ng-container
 >
-
 <!-- Modal -->
 <div
   class="modal fade"
@@ -164,3 +167,72 @@
   </div>
 </div>
 <div class="modal-footer d-flex justify-content-center"></div>
+<div
+  class="modal fade"
+  [attr.id]="'editarTarea' + item"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" [attr.id]="'editarTarea' + item">
+          Editar tarea
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <form [formGroup]="formEditarTarea">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example3cg"
+                >Titulo de la tarea
+              </label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                formControlName="tituloTarea"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"
+                >Descripcion de la tarea</label
+              >
+              <textarea
+                class="form-control"
+                formControlName="descripcionTarea"
+                rows="3"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger btn-block btn-lg text-body"
+            data-bs-dismiss="modal"
+          >
+            <span class="spinner-grow spinner-grow-sm"></span>
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-success btn-block btn-lg text-body"
+            (click)="editarTarea()"
+            data-bs-dismiss="modal"
+            [disabled]="formEditarTarea.invalid"
+          >
+            <span class="spinner-grow spinner-grow-sm"></span>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@
   <aside class="bg-dark text-white">
     <div>
       <span class="m-3">{{ rol }}</span>
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center" *ngIf="rol != 'Desarrollador'">
         <button
           type="button"
           class="btn"
