@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HistoriasService } from 'src/app/core/services/historiasService/historias.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
 import { HistoriaI } from 'src/app/models/historia';
+import { ProyectoI } from 'src/app/models/proyecto.interface';
 import { UsuarioI } from 'src/app/models/usuario';
 
 @Component({
@@ -17,6 +18,7 @@ export class HistoriasComponent implements OnInit {
   proyectoId?: string;
   descripcion?: string;
   usuarios?: Array<UsuarioI>;
+  proyectos?: any;
   public formularioHistoria: FormGroup = this.formBuilder.group({
     tituloHistoriaUsuario: ['', [Validators.required]],
     selecDev: ['', [Validators.required]],
@@ -55,6 +57,7 @@ export class HistoriasComponent implements OnInit {
   ngOnInit(): void {
     this.rol = this.sesionStorageService.getRol();
     this.getUsuarios('Desarrollador');
+    this.getproyectos();
   }
   getHistorias() {
     this.historiasService
@@ -70,6 +73,12 @@ export class HistoriasComponent implements OnInit {
   getUsuarios(rol: string) {
     this.historiasService.traerusuarios(rol).subscribe((data) => {
       this.usuarios = data;
+    });
+  }
+
+  getproyectos() {
+    this.historiasService.traerProyectos().subscribe((data) => {
+      this.proyectos = data;
     });
   }
 }

@@ -110,9 +110,12 @@
                 formControlName="proyectoId"
                 [(ngModel)]="this.newHistoria.proyectoId"
               >
-                <option value="001">002</option>
-                <option value="002">002</option>
-                <option value="003">003</option>
+                <option
+                  *ngFor="let proyecto of this.proyectos"
+                  value="{{ proyecto.proyectoId }}"
+                >
+                  {{ proyecto.nombre }}
+                </option>
               </select>
             </div>
             <div>
