@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
 import { ProyectoI } from 'src/app/models/proyecto.interface';
 import { HistoriaI }from 'src/app/models/historia';
+import { UsuarioI } from 'src/app/models/usuario';
+import { ToastService } from 'src/app/core/services/Toast/toast.service';
 
 @Component({
   selector: 'app-detalles',
@@ -21,8 +23,16 @@ export class DetallesComponent implements OnInit {
 
   desarrolladores: string[] | any
 
+  Desarrolladores:UsuarioI[] | any;
+
+  proyectoForm = new FormGroup({
+    desarrolladorId: new FormArray([
+      new FormControl('')
+    ]),
+  })
+
   detallesForm = new FormGroup({
-    nombre: new FormControl('', Validators.required),
+    nombre: new FormControl(''),
     arquitectoId: new FormControl(''),
     liderTecnicoId: new FormControl('')
   })
@@ -33,14 +43,28 @@ export class DetallesComponent implements OnInit {
     ]),
   })
 
-  constructor(private sesionStorage:SesionStorageService, private api:ApiService, private activerouter:ActivatedRoute) { }
+  constructor(
+    private sesionStorage:SesionStorageService,
+    private toastService:ToastService,
+    private api:ApiService,
+    private activerouter:ActivatedRoute,
+    private router:Router) { }
 
   ngOnInit(): void {
-    this.Historias = [{tituloHistoriaUsuario: 'hola'}, {tituloHistoriaUsuario: 'mundo'}]
-    let proyectoId = this.activerouter.snapshot.paramMap.get('id');
+    let userRol1 = 'Desarrollador';
+    this.api.getUserByRol(userRol1).subscribe(data => this.Desarrolladores = data)
+    //this.Historias = [{tituloHistoriaUsuario: 'hola'}, {tituloHistoriaUsuario: 'mundo'}]
+    this.proyectoId = this.activerouter.snapshot.paramMap.get('id');
+    this.api.getHistoriasByIdProyecto(this.proyectoId).subscribe(datos => {
+      this.Historias = datos;
+      console.log('Historias:', this.Historias)
+      this.historiasForm.setValue({
+        'tituloHistoriaUsuario': JSON.parse(datos.tituloHistoriaUsuario)
+      })
+    })
     //this.clienteId = clienteid
     //let token = this.getToken();
-    this.api.getProyectoById(proyectoId).subscribe(data =>{
+    this.api.getProyectoById(this.proyectoId).subscribe(data =>{
       this.datosProyecto = data;
       let idLider = data.liderTecnicoId
       //obtener los datos del lider tecnico
@@ -53,23 +77,38 @@ export class DetallesComponent implements OnInit {
           'liderTecnicoId': data.nombreCompleto
         })
       })
-      console.log('data')
-      console.log(this.datosProyecto)
-      this.proyectoId = proyectoId;
-      this.historiasForm.setValue({
-        'tituloHistoriaUsuario': this.Historias
-      })
+
       console.log('historias')
       console.log(this.historiasForm)
     })
-
   }
+
+  postForm(form:ProyectoI){
+    console.log('form', form)
+    console.log('this.proyectoId', this.proyectoId)
+    this.api.getUserById(form.desarrolladorId).subscribe(data => {
+      let developer = data
+      developer.idProyectosAsociados = []
+      developer.idProyectosAsociados.push(this.proyectoId)
+      console.log('developer', developer)
+      this.api.postProyectoUser(developer).subscribe(data => console.log('dataFinal', data))
+    })
+    this.toastService.showSuccessToast('Correcto','Cambios Aceptados')
+  }
+
   getDesarrolladores(){
-    return this.detallesForm.get('desarrolladorId') as FormArray;
+    return this.proyectoForm.get('desarrolladorId') as FormArray;
   }
 
   getHistorias(){
     return this.historiasForm.get('tituloHistoriaUsuario') as FormArray;
+  }
 
+  volver(){
+    this.router.navigate(['proyecto'])
+  }
+
+  agregar(){
+    this.router.navigate(['proyecto/agregar'])
   }
 }

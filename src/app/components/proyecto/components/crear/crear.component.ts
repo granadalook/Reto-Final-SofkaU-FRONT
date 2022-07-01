@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
@@ -18,7 +18,7 @@ export class CrearComponent implements OnInit {
   Lideres:UsuarioI[] | any;
 
   proyectoForm = new FormGroup({
-    nombre: new FormControl(''),
+    nombre: new FormControl('', Validators.required),
     arquitectoId: new FormControl(this.sesionStorage.getId()),
     liderTecnicoId: new FormControl(''),
     desarrolladorId: new FormArray([

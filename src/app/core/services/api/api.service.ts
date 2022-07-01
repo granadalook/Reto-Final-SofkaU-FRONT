@@ -6,6 +6,7 @@ import { ResponseI } from 'src/app/models/response.interface';
 import { environment } from 'src/environments/environment';
 import { UsuarioI } from 'src/app/models/usuario';
 import { ProyectoI } from 'src/app/models/proyecto.interface';
+import { HistoriaI } from 'src/app/models/historia';
 
 @Injectable({
   providedIn: 'root'
@@ -45,5 +46,9 @@ export class ApiService {
   deleteProyecto(id:string):Observable<ResponseI>{
     return this.http.delete<ResponseI>(`${environment.UrlBase}${environment.EliminarProyecto}` + id)
     .pipe(tap(res => {this.eliminado.next(res)}))
+  }
+
+  getHistoriasByIdProyecto(id:any):Observable<HistoriaI>{
+    return this.http.get<HistoriaI>(`${environment.UrlBase}${environment.ListarHistoriasPorIdProyecto}`+ id)
   }
 }
