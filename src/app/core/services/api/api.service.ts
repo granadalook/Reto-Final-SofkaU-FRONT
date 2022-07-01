@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { RegisterI } from 'src/app/models/register.interface';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { ResponseI } from 'src/app/models/response.interface';
 import { environment } from 'src/environments/environment';
 import { UsuarioI } from 'src/app/models/usuario';
 import { ProyectoI } from 'src/app/models/proyecto.interface';
+import { HistoriaI } from 'src/app/models/historia';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  arqui: UsuarioI | any
+  private eliminado = new BehaviorSubject({} as ResponseI)
+
+  public eliminado$ = this.eliminado.asObservable()
 
   constructor(private http:HttpClient) { }
 
@@ -40,13 +43,12 @@ export class ApiService {
     return this.http.get<ProyectoI>(`${environment.UrlBase}${environment.ListarProyectoPorId}` + id)
   }
 
-  deleteProyecto(id:string, form:ProyectoI):Observable<ResponseI>{
-    let Options = {
-      Headers: new HttpHeaders({
-        'Content-type': 'application/json'
-      }),
-      body: form
-    }
-    return this.http.delete<ResponseI>(`${environment.UrlBase}${environment.EliminarProyecto}` + id, Options)
+  deleteProyecto(id:string):Observable<ResponseI>{
+    return this.http.delete<ResponseI>(`${environment.UrlBase}${environment.EliminarProyecto}` + id)
+    .pipe(tap(res => {this.eliminado.next(res)}))
+  }
+
+  getHistoriasByIdProyecto(id:any):Observable<HistoriaI>{
+    return this.http.get<HistoriaI>(`${environment.UrlBase}${environment.ListarHistoriasPorIdProyecto}`+ id)
   }
 }

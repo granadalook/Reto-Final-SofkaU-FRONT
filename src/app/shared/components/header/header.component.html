@@ -21,7 +21,7 @@
       >
         Historias de usuario
       </button>
-   
+
       <button
         class="btn btn-outline-secondary m-1"
         type="button"
@@ -38,6 +38,10 @@
         >
           Registro
         </button>
+
+      </ng-container>
+      <ng-container *ngIf="this.usuario?.rol === 'LiderTecnico'|| this.usuario?.rol === 'Arquitecto'">
+
         <button
           class="btn btn-outline-secondary m-1"
           type="button"
