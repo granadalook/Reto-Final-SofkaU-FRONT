@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
 
-  UrlBase: 'http://localhost:8080',
+  UrlBase: 'https://cilantroapp.herokuapp.com',
   Login: '/login',
   crearUsuario: '/usuario/crear',
   crearHistoria: '/historia/crear',
