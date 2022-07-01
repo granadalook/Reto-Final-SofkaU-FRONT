@@ -1,5 +1,5 @@
 <app-toaster></app-toaster>
-  <div class="d-flex justify-content-left p-4">
+  <div class="d-flex justify-content-left p-4" *ngIf="!mostrar">
     <button type="button" class="btn btn-success btn-block btn-md gradient-custom-5 text-body" routerLink="/proyecto/crear">Nuevo Proyecto</button>
   </div>
   <!--<p>{{usuarios.proyectosAsociados[0].nombre}}</p>-->
