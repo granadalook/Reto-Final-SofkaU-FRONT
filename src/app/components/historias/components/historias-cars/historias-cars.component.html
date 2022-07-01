@@ -14,8 +14,16 @@
           style="max-width: 13rem"
         >
           <div class="card-header d-flex flex-column p-1">
+            <ng-container *ngFor="let proyecto of proyectos">
+              <div
+                *ngIf="history.proyectoId === proyecto.proyectoId"
+                class="d-flex justify-content-center fw-bold text-uppercase"
+              >
+                {{ proyecto.nombre }}
+              </div></ng-container
+            >
             <div class="d-flex justify-content-between">
-              <div class="fw-bold text-uppercase">
+              <div class="">
                 {{ history.tituloHistoriaUsuario }}
               </div>
               <p class="fw-bold">{{ history.porcentajeDeAvance }}%</p>

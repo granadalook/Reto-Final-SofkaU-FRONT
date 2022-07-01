@@ -88,7 +88,7 @@ export class DetallesComponent implements OnInit {
       developer.idProyectosAsociados = []
       developer.idProyectosAsociados.push(this.proyectoId)
 
-      this.api.postProyectoUser(developer).subscribe(data => )
+      this.api.postProyectoUser(developer).subscribe(data => console.log('data', data) )
     })
     this.toastService.showSuccessToast('Correcto','Cambios Aceptados')
   }

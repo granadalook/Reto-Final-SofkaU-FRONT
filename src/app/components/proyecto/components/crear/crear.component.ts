@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { ToastService } from 'src/app/core/services/Toast/toast.service';
@@ -10,96 +16,97 @@ import { ProyectoI } from 'src/app/models/proyecto.interface';
 @Component({
   selector: 'app-crear',
   templateUrl: './crear.component.html',
-  styleUrls: ['./crear.component.scss']
+  styleUrls: ['./crear.component.scss'],
 })
 export class CrearComponent implements OnInit {
-  Desarrolladores:UsuarioI[] | any;
+  Desarrolladores: UsuarioI[] | any;
 
-  Lideres:UsuarioI[] | any;
+  Lideres: UsuarioI[] | any;
 
   proyectoForm = new FormGroup({
     nombre: new FormControl('', Validators.required),
     arquitectoId: new FormControl(this.sesionStorage.getId()),
     liderTecnicoId: new FormControl(''),
-    desarrolladorId: new FormArray([
-      new FormControl('')
-    ]),
-  })
+    desarrolladorId: new FormArray([new FormControl('')]),
+  });
 
   constructor(
     private toastService: ToastService,
-    private api:ApiService,
-    private router:Router,
-    private activerouter:ActivatedRoute,
-    private sesionStorage:SesionStorageService,
-    private fb:FormBuilder
-
-    ) { }
+    private api: ApiService,
+    private router: Router,
+    private activerouter: ActivatedRoute,
+    private sesionStorage: SesionStorageService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     let userRol1 = 'Desarrollador';
-    let userRol2 = 'LiderTecnico'
-    this.api.getUserByRol(userRol1).subscribe(data => this.Desarrolladores = data)
-    this.api.getUserByRol(userRol2).subscribe(data => this.Lideres = data)
+    let userRol2 = 'LiderTecnico';
+    this.api
+      .getUserByRol(userRol1)
+      .subscribe((data) => (this.Desarrolladores = data));
+    this.api.getUserByRol(userRol2).subscribe((data) => (this.Lideres = data));
   }
 
-  postForm(form:ProyectoI){
-    if(this.proyectoForm.valid){
-      this.api.crearProyecto(form).subscribe(data => {
-        if(data){
-          this.toastService.showSuccessToast('Correcto', 'Proyecto Creado Exitosamente')
-        
+  postForm(form: ProyectoI) {
+    if (this.proyectoForm.valid) {
+      this.api.crearProyecto(form).subscribe((data) => {
+        if (data) {
+          this.toastService.showSuccessToast(
+            'Correcto',
+            'Proyecto Creado Exitosamente'
+          );
+
           //asignando el id del arquitecto a una variable
-          let arqui = data.arquitectoId
-          let lider = data.liderTecnicoId
+          let arqui = data.arquitectoId;
+          let lider = data.liderTecnicoId;
           //asignando el id del proyecto a una variable
-          let idProyecto = data.proyectoId
-          this.api.getUserById(arqui).subscribe(data => {
+          let idProyecto = data.proyectoId;
+          this.api.getUserById(arqui).subscribe((data) => {
             //asignando los datos del arquitecto a una variable
-            let archi = data
+            let archi = data;
             //se limpia el array de proyectos
-            archi.idProyectosAsociados = []
+            archi.idProyectosAsociados = [];
             //se agrega el id del proyecto actual al arreglo
-            archi.idProyectosAsociados.push(idProyecto)
+            archi.idProyectosAsociados.push(idProyecto);
             //se envían los datos al backend
-            this.api.postProyectoUser(archi).subscribe(data => )
-          })
-          this.api.getUserById(lider).subscribe(data => {
+            this.api.postProyectoUser(archi).subscribe((data) => {});
+          });
+          this.api.getUserById(lider).subscribe((data) => {
             //asignando los datos del lider Tecnico a una variable
-            let lider = data
+            let lider = data;
             //se limpia el array de proyectos
-            lider.idProyectosAsociados = []
+            lider.idProyectosAsociados = [];
             //se agrega el id del proyecto actual al arreglo
-            lider.idProyectosAsociados.push(idProyecto)
+            lider.idProyectosAsociados.push(idProyecto);
             //se envían los datos al backend
-            this.api.postProyectoUser(lider).subscribe(data => )
-          })
-          setTimeout(()=>{
-            this.router.navigate(['proyecto'])
-          }, 2000)
+            this.api.postProyectoUser(lider).subscribe((data) => {});
+          });
+          setTimeout(() => {
+            this.router.navigate(['proyecto']);
+          }, 2000);
         }
-      })
-    
-    }else{
-      this.toastService.showErrorToast('Error', 'Campos Inválidos')
+      });
+    } else {
+      this.toastService.showErrorToast('Error', 'Campos Inválidos');
     }
   }
 
-  getDesarrolladores(){
+  getDesarrolladores() {
     return this.proyectoForm.get('desarrolladorId') as FormArray;
   }
 
-  addDesarrollador(){
-    const control = <FormArray>this.proyectoForm.controls['desarrolladorId']
-    control.push(new FormControl(''))
+  addDesarrollador() {
+    const control = <FormArray>this.proyectoForm.controls['desarrolladorId'];
+    control.push(new FormControl(''));
   }
 
-  removerDesarrollador(index: number){
-    const control = <FormArray>this.proyectoForm.controls['desarrolladorId']
-    control.removeAt(index)
+  removerDesarrollador(index: number) {
+    const control = <FormArray>this.proyectoForm.controls['desarrolladorId'];
+    control.removeAt(index);
   }
 
-  cancelar(){
-    this.router.navigate(['/proyecto'])
+  cancelar() {
+    this.router.navigate(['/proyecto']);
   }
 }

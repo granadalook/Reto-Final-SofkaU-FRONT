@@ -68,7 +68,7 @@ export class ProyectoComponent implements OnInit {
   }
 
   eliminar(id:string){
-    this.api.deleteProyecto(id).subscribe(data => )
+    this.api.deleteProyecto(id).subscribe(data => {data})
     this.toastService.showSuccessToast('Correcto', 'Proyecto Eliminado')
   }
 }

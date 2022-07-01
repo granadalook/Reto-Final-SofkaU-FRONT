@@ -14,6 +14,7 @@ export class HistoriasCarsComponent implements OnInit {
   historys?: Array<HistoriaI>;
   rol?: string | null;
   eliminado$?: Subscription;
+  proyectos: any;
 
   constructor(
     private sesionStorageService: SesionStorageService,
@@ -22,6 +23,7 @@ export class HistoriasCarsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getproyectos();
     this.eliminado$ = this.historiasService.eliminado$.subscribe((data) => {
       if (data === null) {
         this.getHistorias();
@@ -35,6 +37,12 @@ export class HistoriasCarsComponent implements OnInit {
 
     this.rol = this.sesionStorageService.getRol();
     this.getHistorias();
+  }
+  getproyectos() {
+    this.historiasService.traerProyectos().subscribe((data) => {
+      console.log('data', data);
+      this.proyectos = data;
+    });
   }
   ngOnDestroy() {
     this.eliminado$?.unsubscribe();
@@ -57,7 +65,6 @@ export class HistoriasCarsComponent implements OnInit {
 
   eliminarHistoria(id: string) {
     this.historiasService.EliminarHistoria(id).subscribe((data) => {
-    
       if (data === null) {
         this.toastService.showWarningToast(
           'Historia de usuario',
