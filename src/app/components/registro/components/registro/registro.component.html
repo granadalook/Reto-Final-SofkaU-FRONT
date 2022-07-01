@@ -35,6 +35,7 @@
                     <span *ngIf="registerForm.get('password')?.hasError?.('required')">campo requerido</span>
                     <span *ngIf="registerForm.get('password')?.hasError?.('minlength')">debe contener al menos 5 caracteres</span>
                     <span *ngIf="registerForm.get('password')?.hasError?.('maxlength')">no debe contener mas de 8 caracteres</span>
+                    <span *ngIf="registerForm.get('password')?.hasError?.('pattern')">debe contener al menos un caracter especial</span>
                   </div>
                 </div>
 

@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 export class ProyectoComponent implements OnInit {
 
   userLogged = this.sesionStorage.getId()
+  userLoggedRol = this.sesionStorage.getRol()
 
   usuarios:UsuarioI[] | any
 
@@ -25,6 +26,8 @@ export class ProyectoComponent implements OnInit {
   eliminando: ResponseI | undefined
 
   eliminando$?: Subscription
+
+  mostrar:boolean = false
 
   constructor(
     private toastService: ToastService,
@@ -35,6 +38,9 @@ export class ProyectoComponent implements OnInit {
     ) {}
 
   ngOnInit(): void {
+    if(this.userLoggedRol === 'LiderTecnico'){
+      this.mostrar = true
+    }
     this.traerProyectosByUsuario()
     this.eliminando$ = this.api.eliminado$.subscribe(res => {
       this.eliminando = res
