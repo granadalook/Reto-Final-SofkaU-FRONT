@@ -1,4 +1,4 @@
-footer {
+/* footer {
   position: sticky;
   height: 110px;
   bottom: 0;
@@ -6,13 +6,16 @@ footer {
   background-color: black;
   color: rgb(128, 128, 128);
 }
-div.normal {
-  line-height: 80%; //disminuye el espaciado entre parrafos
-  float: left; //alinea la posicion a la izquierda
 }
+ */
+.botones--container {
+  display: flex;
+  justify-content: space-around;
 
-div.icono {
-  float: right; //alinea la posicion a la derecha
-  line-height: 110px; //centra el elemento verticalmente
-  margin-right: 50px;
+  padding: 5px;
+}
+@media (min-width: 300px) and (max-width: 600px) {
+  .botones--container {
+    flex-direction: column;
+  }
 }
