@@ -1,7 +1,37 @@
 <ng-container *ngFor="let tarea of tareas">
-  <div class="card centro mb-3 border-dark" style="max-width: 13rem">
+  <div
+    class="card centro mb-3"
+    [ngClass]="{
+      'border-success border-2 sombraCard': tarea.estado === 'DONE'
+    }"
+    style="max-width: 13rem"
+  >
     <div class="card-header d-flex flex-column p-1 fw-bold text-uppercase">
       {{ tituloHistoriausuario }} / {{ tarea.nombreTarea }}
+      <div class="d-flex justify-content-end">
+        <button
+          type="button "
+          class="btn mx-1 botonheader"
+          (click)="eliminarTarea(tarea.tareaId)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/pencil.png"
+            alt=""
+          />
+        </button>
+        <button
+          type="button"
+          class="btn mx-1 botonheader"
+          (click)="eliminarTarea(tarea.tareaId)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/Button-Delete-icon.png"
+            alt=""
+          />
+        </button>
+      </div>
     </div>
     <div class="card-body p-1">
       <div>

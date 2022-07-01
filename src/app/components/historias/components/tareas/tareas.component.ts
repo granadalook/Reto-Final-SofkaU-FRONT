@@ -1,8 +1,10 @@
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HistoriasService } from 'src/app/core/services/historiasService/historias.service';
 import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
 import { TareaService } from 'src/app/core/services/tarea/tarea.service';
+import { ToastService } from 'src/app/core/services/Toast/toast.service';
 import { TareaI } from 'src/app/models/tarea';
 
 @Component({
@@ -47,7 +49,7 @@ export class TareasComponent implements OnInit {
     )?.value;
     this.nuevaTarea.descripcionTarea =
       this.formularioHistoria.get('descripcion')?.value;
-    this.nuevaTarea.estado = 'DOING';
+    this.nuevaTarea.estado = 'TO-DO';
     this.HistoriasService.crearTarea(this.nuevaTarea).subscribe((data) => {
       this.nuevaTareaCreada.emit();
     });
@@ -82,6 +84,7 @@ export class TareasComponent implements OnInit {
     };
     this.tareaService.actualizarTarea(estadoCambiado).subscribe((data) => {
       console.log('data', data);
+      this.nuevaTareaCreada.emit();
     });
   }
   cambioEstadoDoing(tarea: TareaI) {
@@ -95,6 +98,7 @@ export class TareasComponent implements OnInit {
     };
     this.tareaService.actualizarTarea(estadoCambiado).subscribe((data) => {
       console.log('data', data);
+      this.nuevaTareaCreada.emit();
     });
   }
   cambioEstadoTesting(tarea: TareaI) {
@@ -108,6 +112,7 @@ export class TareasComponent implements OnInit {
     };
     this.tareaService.actualizarTarea(estadoCambiado).subscribe((data) => {
       console.log('data', data);
+      this.nuevaTareaCreada.emit();
     });
   }
   cambioEstadoDone(tarea: TareaI) {
@@ -122,6 +127,17 @@ export class TareasComponent implements OnInit {
     this.tareaTerminada(tarea);
     this.tareaService.actualizarTarea(estadoCambiado).subscribe((data) => {
       console.log('data', data);
+      this.nuevaTareaCreada.emit();
+    });
+  }
+  eliminarTarea(idTarea: string) {
+    console.log('idtarea', idTarea);
+    this.tareaService.eliminarTarea(idTarea).subscribe((res) => {
+      console.log('res', res);
+
+      if (res === null) {
+        this.nuevaTareaCreada.emit();
+      }
     });
   }
 }

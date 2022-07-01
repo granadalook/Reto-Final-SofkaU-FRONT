@@ -65,10 +65,9 @@ export class HistoriasComponent implements OnInit {
       ?.subscribe((data) => {});
   }
   nuevaHistoria() {
-    this.historiasService.crearHistoria(this.newHistoria).subscribe((data) => {
-      if (data) {
-      }
-    });
+    this.historiasService
+      .crearHistoria(this.newHistoria)
+      .subscribe((data) => {});
   }
   getUsuarios(rol: string) {
     this.historiasService.traerusuarios(rol).subscribe((data) => {

@@ -21,4 +21,5 @@ export const environment = {
   ListarProyectoPorId: '/proyecto/',
   EliminarProyecto: '/eliminarProyecto/',
   listarproyectos: '/listarProyectos',
+  eliminarTarea: '/eliminarTarea/',
 };

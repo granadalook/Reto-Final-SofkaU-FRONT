@@ -16,4 +16,10 @@ export class TareaService {
       tareaActualizada
     );
   }
+  eliminarTarea(IdTarea: string) {
+    console.log('tareaActualizada', IdTarea);
+    return this.http.delete(
+      `${environment.UrlBase}${environment.eliminarTarea}` + IdTarea
+    );
+  }
 }
