@@ -1,0 +1,21 @@
+/* footer {
+  position: sticky;
+  height: 110px;
+  bottom: 0;
+  width: 100%;
+  background-color: black;
+  color: rgb(128, 128, 128);
+}
+}
+ */
+.botones--container {
+  display: flex;
+  justify-content: space-around;
+
+  padding: 5px;
+}
+@media (min-width: 300px) and (max-width: 600px) {
+  .botones--container {
+    flex-direction: column;
+  }
+}

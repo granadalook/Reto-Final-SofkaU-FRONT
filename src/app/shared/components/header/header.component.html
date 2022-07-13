@@ -1,1 +1,58 @@
-<p>header works!</p>
+<nav class="navbar navbar-dark bg-dark d-flex justify-content-around">
+  <div class="m-3">
+    <img
+      width="106"
+      height="32"
+      src="../../../../assets/img/7508337192_1a19c680-f4bd-48b7-ad82-6bc50e07db5f.png"
+      class=".img-fluid float-start"
+      alt="logo Cien de cilantro"
+    />
+  </div>
+  <div>
+    <h2 class="text-light">{{ usuario?.nombreCompleto }}</h2>
+  </div>
+  <div class="d-flex flex-wrap">
+    <ng-container *ngIf="loggueado">
+      <button
+        class="btn btn-outline-secondary m-1"
+        type="button"
+
+        routerLink="/historias"
+      >
+        Historias de usuario
+      </button>
+
+      <button
+        class="btn btn-outline-secondary m-1"
+        type="button"
+
+        routerLink="/homepage"
+      >
+        Home
+      </button>
+      <ng-container *ngIf="this.usuario?.rol === 'Arquitecto'">
+        <button
+          class="btn btn-outline-secondary m-1"
+          type="button"
+          routerLink="/registro"
+        >
+          Registro
+        </button>
+
+      </ng-container>
+      <ng-container *ngIf="this.usuario?.rol === 'LiderTecnico'|| this.usuario?.rol === 'Arquitecto'">
+
+        <button
+          class="btn btn-outline-secondary m-1"
+          type="button"
+          routerLink="/proyecto"
+        >
+          Proyectos
+        </button>
+      </ng-container>
+       <button class="btn m-1" type="button" (click)="cerrarSesion()">
+        <img src="../../../../assets/icon/Windows-Turn-Off-icon.png" alt="" />
+      </button>
+    </ng-container>
+  </div>
+</nav>

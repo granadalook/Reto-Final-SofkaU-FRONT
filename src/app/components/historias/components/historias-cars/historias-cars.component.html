@@ -1,0 +1,72 @@
+<div class="d-flex justify-content-center flex-wrap">
+  <ng-container *ngFor="let history of historys">
+    <div class="card m-1 border border-2" style="width: 13rem">
+      <div class="card-body p-1">
+        <div
+          class="card centro mb-3"
+          [ngClass]="{
+            'text-bg-success':
+              history.estimacion === '1' || history.estimacion === '3',
+            'text-bg-warning':
+              history.estimacion === '5' || history.estimacion === '8',
+            'text-bg-danger': history.estimacion === '13'
+          }"
+          style="max-width: 13rem"
+        >
+          <div class="card-header d-flex flex-column p-1">
+            <ng-container *ngFor="let proyecto of proyectos">
+              <div
+                *ngIf="history.proyectoId === proyecto.proyectoId"
+                class="d-flex justify-content-center fw-bold text-uppercase"
+              >
+                {{ proyecto.nombre }}
+              </div></ng-container
+            >
+            <div class="d-flex justify-content-between">
+              <div class="">
+                {{ history.tituloHistoriaUsuario }}
+              </div>
+              <p class="fw-bold">{{ history.porcentajeDeAvance }}%</p>
+            </div>
+            <div class="d-flex justify-content-start">
+              <div class="me-1">Estimacion:</div>
+              <p class="fw-bold">{{ history.estimacion }}</p>
+            </div>
+          </div>
+          <div class="card-body p-1">
+            <p class="card-text m-0">{{ history.descripcion }}</p>
+            <ng-container *ngIf="rol != 'Desarrollador'">
+              <button
+                type="button"
+                class="btn"
+                (click)="eliminarHistoria(history.historiaUsuarioId)"
+              >
+                <img
+                  class="iconoLogo"
+                  src="../../../../../assets/icon/Button-Delete-icon.png"
+                  alt=""
+                /></button
+            ></ng-container>
+            <button
+              class="btn"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="'#exampleModa' + history.historiaUsuarioId"
+            >
+              <img
+                class="iconoLogo"
+                src="../../../../../assets/icon/File-New-icon.png"
+                alt=""
+              />
+            </button>
+          </div>
+        </div>
+        <app-tareas
+          [item]="history.historiaUsuarioId"
+          [tituloHistoriausuario]="history.tituloHistoriaUsuario"
+          [tareas]="history.tareas"
+          (nuevaTareaCreada)="nuevaTareaCreada()"
+        ></app-tareas>
+      </div>
+    </div>
+  </ng-container>
+</div>

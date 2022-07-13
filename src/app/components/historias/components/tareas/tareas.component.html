@@ -1,0 +1,238 @@
+<ng-container *ngFor="let tarea of tareas">
+  <div
+    class="card centro mb-3"
+    [ngClass]="{
+      'border-success border-2 sombraCard': tarea.estado === 'DONE'
+    }"
+    style="max-width: 13rem"
+  >
+    <div class="card-header d-flex flex-column p-1 fw-bold text-uppercase">
+      {{ tituloHistoriausuario }} / {{ tarea.nombreTarea }}
+      <div class="d-flex justify-content-end">
+        <button
+          class="btn"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#editarTarea' + tarea.historiaUsuarioId"
+          (click)="IdEditarTarea(tarea.tareaId)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/pencil.png"
+            alt=""
+          />
+        </button>
+        <button
+          type="button"
+          class="btn mx-1 botonheader"
+          (click)="eliminarTarea(tarea.tareaId)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/Button-Delete-icon.png"
+            alt=""
+          />
+        </button>
+      </div>
+    </div>
+    <div class="card-body p-1">
+      <div>
+        <button
+          type="button"
+          class="btn mx-1 botonCars"
+          [disabled]="tarea.estado === 'DONE'"
+          [ngClass]="{ sombra: tarea.estado === 'TO-DO' }"
+          (click)="cambioEstadoTodo(tarea)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/Next-Blue-2-icon.png"
+            alt=""
+          />
+        </button>
+        <button
+          type="button"
+          class="btn mx-1 botonCars"
+          [disabled]="tarea.estado === 'DONE'"
+          [ngClass]="{ sombra: tarea.estado === 'DOING' }"
+          (click)="cambioEstadoDoing(tarea)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/Sync-Orange-icon.png"
+            alt=""
+          />
+        </button>
+        <button
+          type="button"
+          class="btn mx-1 botonCars"
+          [disabled]="tarea.estado === 'DONE'"
+          [ngClass]="{ sombra: tarea.estado === 'TESTING' }"
+          (click)="cambioEstadoTesting(tarea)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/Danger-icon.png"
+            alt=""
+          />
+        </button>
+        <button
+          type="button"
+          class="btn mx-1 botonCars"
+          [ngClass]="{ sombra: tarea.estado === 'DONE' }"
+          (click)="tareaTerminada(tarea)"
+        >
+          <img
+            class="iconoLogo"
+            src="../../../../../assets/icon/accept-icon.png"
+            alt=""
+          />
+        </button>
+      </div>
+      <p class="card-text m-0">
+        {{ tarea.descripcionTarea }}
+      </p>
+    </div>
+  </div></ng-container
+>
+<!-- Modal -->
+<div
+  class="modal fade"
+  [attr.id]="'exampleModa' + item"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" [attr.id]="'exampleModa' + item">
+          Agregar tarea
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <form [formGroup]="formularioHistoria">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example3cg"
+                >Titulo de la tarea
+              </label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                placeholder="Titulo de la tarea"
+                formControlName="tituloHistoriaUsuario"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"
+                >Descripcion de la tarea</label
+              >
+              <textarea
+                class="form-control"
+                formControlName="descripcion"
+                placeholder="Descripcion detallada de la tarea"
+                rows="3"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger btn-block btn-lg text-body"
+            data-bs-dismiss="modal"
+          >
+            <span class="spinner-grow spinner-grow-sm"></span>
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-success btn-block btn-lg text-body"
+            (click)="clearTarea()"
+            data-bs-dismiss="modal"
+            [disabled]="formularioHistoria.invalid"
+          >
+            <span class="spinner-grow spinner-grow-sm"></span>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer d-flex justify-content-center"></div>
+<div
+  class="modal fade"
+  [attr.id]="'editarTarea' + item"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" [attr.id]="'editarTarea' + item">
+          Editar tarea
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-body">
+          <form [formGroup]="formEditarTarea">
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example3cg"
+                >Titulo de la tarea
+              </label>
+              <input
+                type="text"
+                class="form-control form-control-lg"
+                formControlName="tituloTarea"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label"
+                >Descripcion de la tarea</label
+              >
+              <textarea
+                class="form-control"
+                formControlName="descripcionTarea"
+                rows="3"
+              ></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-danger btn-block btn-lg text-body"
+            data-bs-dismiss="modal"
+          >
+            <span class="spinner-grow spinner-grow-sm"></span>
+            Cancelar
+          </button>
+          <button
+            type="button"
+            class="btn btn-success btn-block btn-lg text-body"
+            (click)="editarTarea()"
+            data-bs-dismiss="modal"
+            [disabled]="formEditarTarea.invalid"
+          >
+            <span class="spinner-grow spinner-grow-sm"></span>
+            Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HistoriasService } from 'src/app/core/services/historiasService/historias.service';
+import { SesionStorageService } from 'src/app/core/services/SesionStorage/sesion-storage.service';
+import { HistoriaI } from 'src/app/models/historia';
+import { ProyectoI } from 'src/app/models/proyecto.interface';
+import { UsuarioI } from 'src/app/models/usuario';
+
+@Component({
+  selector: 'app-historias',
+  templateUrl: './historias.component.html',
+  styleUrls: ['./historias.component.scss'],
+})
+export class HistoriasComponent implements OnInit {
+  rol?: string | null;
+  liderTecnicoId: string | null = '';
+  newHistoria: HistoriaI;
+  proyectoId?: string;
+  descripcion?: string;
+  usuarios?: Array<UsuarioI>;
+  proyectos?: any;
+  public formularioHistoria: FormGroup = this.formBuilder.group({
+    tituloHistoriaUsuario: ['', [Validators.required]],
+    selecDev: ['', [Validators.required]],
+    proyectoId: ['', [Validators.required]],
+    estimacion: ['', [Validators.required]],
+    descripcion: ['', [Validators.required]],
+  });
+  constructor(
+    private sesionStorageService: SesionStorageService,
+    private historiasService: HistoriasService,
+    private formBuilder: FormBuilder
+  ) {
+    this.newHistoria = {
+      liderTecnicoId: this.sesionStorageService.getId(),
+      descripcion: '',
+      proyectoId: '',
+      desarrolladorId: '',
+      historiaUsuarioId: '',
+      tituloHistoriaUsuario: '',
+      estimacion: '',
+      porcentajeDeAvance: '',
+      estado: '',
+      tareas: [
+        {
+          desarrolladorId: '',
+          descripcionTarea: '',
+          historiaUsuarioId: '',
+          nombreTarea: '',
+          estado: '',
+          tareaId: '',
+          completa: false,
+        },
+      ],
+    };
+  }
+  ngOnInit(): void {
+    this.rol = this.sesionStorageService.getRol();
+    this.getUsuarios('Desarrollador');
+    this.getproyectos();
+  }
+  getHistorias() {
+    this.historiasService
+      .validacionRol(this.sesionStorageService.getId())
+      ?.subscribe((data) => {});
+  }
+  nuevaHistoria() {
+    this.historiasService
+      .crearHistoria(this.newHistoria)
+      .subscribe((data) => {});
+  }
+  getUsuarios(rol: string) {
+    this.historiasService.traerusuarios(rol).subscribe((data) => {
+      this.usuarios = data;
+    });
+  }
+
+  getproyectos() {
+    this.historiasService.traerProyectos().subscribe((data) => {
+      this.proyectos = data;
+    });
+  }
+}

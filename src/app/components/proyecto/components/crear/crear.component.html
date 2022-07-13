@@ -1,0 +1,57 @@
+<app-toaster></app-toaster>
+<section class="vh-100 bg-image">
+  <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body p-5">
+              <h2 class="text-uppercase text-center mb-4 fw-bold">Crear Proyecto</h2>
+
+              <form [formGroup]="proyectoForm" (ngSubmit)="postForm(proyectoForm.value)">
+
+                <div class="form-outline mb-3">
+                  <label class="form-label" for="form3Example1cg">Nombre del Proyecto</label>
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" formControlName="nombre"/>
+                  <div class="errores" *ngIf="proyectoForm.get('nombre')?.invalid && proyectoForm.get('nombre')?.dirty || proyectoForm.get('nombre')?.touched">
+                    <span *ngIf="proyectoForm.get('nombre')?.hasError?.('required')">campo requerido</span>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <label for="rol" class="form-label">Lider Técnico</label>
+                  <select class="form-select" formControlName="liderTecnicoId" aria-label="Default select example">
+                    <option value={{lider.usuarioId}} *ngFor="let lider of Lideres">{{lider.nombreCompleto}}</option>
+                  </select>
+                </div>
+
+<!--esto es para agregar desarrolladores al proyecto pero no se está usando por el momento-->
+<!--
+                  <div formArrayName="desarrolladorId">
+                    <div class="mb-4" *ngFor="let item of getDesarrolladores().controls; index as i">
+                      <label for="rol" class="form-label">Asignar Desarrollador</label>
+                      <select class="form-select" formControlName="{{i}}" aria-label="Default select example">
+                        <option value={{desarrollador.usuarioId}} *ngFor="let desarrollador of Desarrolladores;">{{desarrollador.nombreCompleto}}</option>
+                      </select><a class=" btn-link btn-sm" style="cursor:pointer;" (click)="removerDesarrollador(i)">Eliminar</a>
+                    </div>
+                  </div>
+                  <a class=" btn-link btn-sm" style="cursor:pointer;" (click)="addDesarrollador()">Agregar Otro Desarrollador</a>
+-->
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Crear Proyecto</button>
+                </div>
+                <div class="d-flex justify-content-center">
+                  <button type="button" class="btn btn-secondary btn-block btn-lg gradient-custom-5 text-body" (click)="cancelar()">Cancelar</button>
+                </div>
+
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+

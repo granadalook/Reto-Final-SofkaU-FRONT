@@ -1,9 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ArquitectoGuard } from './guard/guardianArquitecto/arquitecto.guard';
+import { ProteccionGuard } from './guard/guardianDesarrollador/proteccion.guard';
 
 const routes: Routes = [
   {
     path: '',
+    loadChildren: () =>
+      import('./components/login/login.module').then(
+        (modulo) => modulo.LoginModule
+      ),
+  },
+  {
+    path: 'historias',
+    canActivate: [ProteccionGuard],
+    loadChildren: () =>
+      import('./components/historias/historias.module').then(
+        (modulo) => modulo.HistoriasModule
+      ),
+  },
+  {
+    path: 'homepage',
+    canActivate: [ProteccionGuard],
     loadChildren: () =>
       import('./components/homepage/homepage.module').then(
         (modulo) => modulo.HomepageModule
@@ -18,9 +36,18 @@ const routes: Routes = [
   },
   {
     path: 'registro',
+    canActivate: [ArquitectoGuard],
     loadChildren: () =>
       import('./components/registro/registro.module').then(
         (modulo) => modulo.RegistroModule
+      ),
+  },
+  {
+    path: 'proyecto',
+    canActivate: [ArquitectoGuard],
+    loadChildren: () =>
+      import('./components/proyecto/proyecto.module').then(
+        (modulo) => modulo.ProyectoModule
       ),
   },
 ];

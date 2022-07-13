@@ -1,0 +1,16 @@
+<app-toaster></app-toaster>
+  <div class="d-flex justify-content-left p-4" *ngIf="!mostrar">
+    <button type="button" class="btn btn-success btn-block btn-md gradient-custom-5 text-body" routerLink="/proyecto/crear">Nuevo Proyecto</button>
+  </div>
+  <!--<p>{{usuarios.proyectosAsociados[0].nombre}}</p>-->
+  <div class="row" *ngFor="let usuario of usuarios">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{usuario.nombre}}</h5>
+          <p class="card-text"></p>
+          <a  class="btn btn-primary" (click)="editarProyecto(usuario.proyectoId)">Ver Proyecto</a>
+          <a  class="btn btn-danger" (click)="eliminar(usuario.proyectoId)">Eliminar</a>
+        </div>
+      </div>
+    </div>
